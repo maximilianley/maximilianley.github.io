@@ -8,23 +8,227 @@
     <title>My Website</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        html,
         body {
             margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+
+            background: #150015;
+
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        /* =========================
+           ANIMATED BACKGROUND
+           ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+
+            /*background:
+                radial-gradient(
+                    circle at 50% 50%,
+                    #10194a 0%,
+                    #070b20 45%,
+                    #050816 100%
+                );*/
+        }
+
+        /* The actual blob */
+        .blob {
+            position: absolute;
+
+            width: 65vw;
+            height: 55vw;
+
+            max-width: 1100px;
+            max-height: 800px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            background:
+                radial-gradient(
+                    ellipse at 25% 25%,
+                    #400040 0%,
+                    #150015 20%,
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 75% 70%,
+                    #340050 0%, /*#502c8f 0%,*/
+                    #150015 25%,
+                    transparent 70%
+                ),
+                linear-gradient(
+                    120deg,
+                    #070517,
+                    #250529,
+                    #400fc0
+                );
+                /*linear-gradient(
+                    120deg,
+                    #075eff,
+                    #4520d9,
+                    #b629e8
+                );*/
+
+            /*
+             * This creates the soft glowing appearance.
+             */
+            filter: blur(25px);
+
+            opacity: 0.85;
+
+            animation:
+                morph 14s ease-in-out infinite alternate,
+                float 20s ease-in-out infinite alternate;
+        }
+
+        /* Additional glow behind the blob */
+        .blob::before {
+            content: "";
+
+            position: absolute;
+            inset: -15%;
+
+            background: inherit;
+
+            filter: blur(80px);
+
+            opacity: 0.65;
+
+            z-index: -1;
+        }
+
+        /* =========================
+           BLOB MORPHING
+           ========================= */
+
+        @keyframes morph {
+            0% {
+                border-radius:
+                    70% 30% 60% 40%
+                    / 50% 60% 40% 50%;
+
+                transform:
+                    translate(-50%, -50%)
+                    rotate(0deg)
+                    scale(1);
+            }
+
+            25% {
+                border-radius:
+                    40% 60% 30% 70%
+                    / 60% 40% 70% 30%;
+
+                transform:
+                    translate(-50%, -50%)
+                    rotate(8deg)
+                    scale(1.08);
+            }
+
+            50% {
+                border-radius:
+                    60% 40% 70% 30%
+                    / 35% 65% 45% 55%;
+
+                transform:
+                    translate(-50%, -50%)
+                    rotate(-5deg)
+                    scale(0.95);
+            }
+
+            75% {
+                border-radius:
+                    30% 70% 50% 50%
+                    / 70% 30% 60% 40%;
+
+                transform:
+                    translate(-50%, -50%)
+                    rotate(10deg)
+                    scale(1.05);
+            }
+
+            100% {
+                border-radius:
+                    75% 25% 40% 60%
+                    / 45% 55% 35% 65%;
+
+                transform:
+                    translate(-50%, -50%)
+                    rotate(-8deg)
+                    scale(1);
+            }
+        }
+
+        /* =========================
+           SLOW MOVEMENT
+           ========================= */
+
+        @keyframes float {
+            0% {
+                margin-left: -15vw;
+                margin-top: -5vh;
+            }
+
+            50% {
+                margin-left: 12vw;
+                margin-top: 8vh;
+            }
+
+            100% {
+                margin-left: -8vw;
+                margin-top: -10vh;
+            }
+        }
+
+        /* =========================
+           YOUR CONTENT
+           ========================= */
+
+        .content {
+            position: relative;
+            z-index: 1;
+
             min-height: 100vh;
 
-            /* Change this to whatever background you want */
-            background: #110011;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            color: white;
-            font-family: Arial, sans-serif;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>My Website</h1>
+    <!-- Animated background -->
+    <div class="background">
+        <div class="blob"></div>
+    </div>
+
+    <!-- Website content -->
+    <main class="content">
+        <h1>My Website</h1>
+    </main>
 
 </body>
 </html>
