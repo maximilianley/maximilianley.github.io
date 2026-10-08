@@ -5,9 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Website</title>
+    <title>Maximilian Ley | CV</title>
 
     <style>
+        :root {
+            --bg: #0b0d12;
+            --panel: transparent;
+            --panel-hover: rgba(255, 255, 255, 0.015);
+            --stroke: transparent;
+            --stroke-strong: transparent;
+            --text: #f4f7ff;
+            --muted: #bcc5da;
+            --soft: #8b92a9;
+            --accent: #d9e3ff;
+            --shadow: none;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -21,214 +34,651 @@
 
         body {
             min-height: 100vh;
-            overflow: hidden;
-
-            background: #150015;
-
+            background: var(--bg);
+            color: var(--text);
             font-family: Arial, sans-serif;
-            color: white;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+            position: relative;
         }
 
-        /* =========================
-           ANIMATED BACKGROUND
-           ========================= */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-        .background {
+        body::before {
+            content: "";
             position: fixed;
             inset: 0;
-            overflow: hidden;
-            z-index: -1;
-
-            /*background:
-                radial-gradient(
-                    circle at 50% 50%,
-                    #10194a 0%,
-                    #070b20 45%,
-                    #050816 100%
-                );*/
-        }
-
-        /* The actual blob */
-        .blob {
-            position: absolute;
-
-            width: 65vw;
-            height: 55vw;
-
-            max-width: 1100px;
-            max-height: 800px;
-
-            left: 50%;
-            top: 50%;
-
-            transform: translate(-50%, -50%);
-
+            z-index: -2;
             background:
                 radial-gradient(
                     ellipse at 25% 25%,
-                    #400040 0%,
-                    #150015 20%,
-                    transparent 45%
+                    rgba(157, 85, 255, 0.22) 0%,
+                    rgba(21, 0, 21, 0.12) 28%,
+                    transparent 52%
                 ),
                 radial-gradient(
                     ellipse at 75% 70%,
-                    #340050 0%, /*#502c8f 0%,*/
-                    #150015 25%,
-                    transparent 70%
-                ),
-                linear-gradient(
-                    120deg,
-                    #070517,
-                    #250529,
-                    #400fc0
+                    rgba(89, 103, 255, 0.18) 0%,
+                    rgba(21, 0, 21, 0.12) 32%,
+                    transparent 68%
                 );
-                /*linear-gradient(
-                    120deg,
-                    #075eff,
-                    #4520d9,
-                    #b629e8
-                );*/
-
-            /*
-             * This creates the soft glowing appearance.
-             */
-            filter: blur(25px);
-
-            opacity: 0.85;
-
-            animation:
-                morph 14s ease-in-out infinite alternate,
-                float 20s ease-in-out infinite alternate;
-        }
-
-        /* Additional glow behind the blob */
-        .blob::before {
-            content: "";
-
-            position: absolute;
-            inset: -15%;
-
-            background: inherit;
-
             filter: blur(80px);
-
-            opacity: 0.65;
-
-            z-index: -1;
+            opacity: 1;
         }
 
-        /* =========================
-           BLOB MORPHING
-           ========================= */
-
-        @keyframes morph {
-            0% {
-                border-radius:
-                    70% 30% 60% 40%
-                    / 50% 60% 40% 50%;
-
-                transform:
-                    translate(-50%, -50%)
-                    rotate(0deg)
-                    scale(1);
-            }
-
-            25% {
-                border-radius:
-                    40% 60% 30% 70%
-                    / 60% 40% 70% 30%;
-
-                transform:
-                    translate(-50%, -50%)
-                    rotate(8deg)
-                    scale(1.08);
-            }
-
-            50% {
-                border-radius:
-                    60% 40% 70% 30%
-                    / 35% 65% 45% 55%;
-
-                transform:
-                    translate(-50%, -50%)
-                    rotate(-5deg)
-                    scale(0.95);
-            }
-
-            75% {
-                border-radius:
-                    30% 70% 50% 50%
-                    / 70% 30% 60% 40%;
-
-                transform:
-                    translate(-50%, -50%)
-                    rotate(10deg)
-                    scale(1.05);
-            }
-
-            100% {
-                border-radius:
-                    75% 25% 40% 60%
-                    / 45% 55% 35% 65%;
-
-                transform:
-                    translate(-50%, -50%)
-                    rotate(-8deg)
-                    scale(1);
-            }
+        .page-shell {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 48px 18px 80px;
         }
 
-        /* =========================
-           SLOW MOVEMENT
-           ========================= */
-
-        @keyframes float {
-            0% {
-                margin-left: -15vw;
-                margin-top: -5vh;
-            }
-
-            50% {
-                margin-left: 12vw;
-                margin-top: 8vh;
-            }
-
-            100% {
-                margin-left: -8vw;
-                margin-top: -10vh;
-            }
+        .section-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 10px 0 12px;
+            box-shadow: none;
         }
 
-        /* =========================
-           YOUR CONTENT
-           ========================= */
+        .hero {
+            margin-bottom: 22px;
+            padding-top: 28px;
+            padding-bottom: 26px;
+        }
 
-        .content {
-            position: relative;
-            z-index: 1;
-
-            min-height: 100vh;
-
+        .hero-top {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 22px;
+            margin-bottom: 18px;
+        }
 
-            text-align: center;
+        .profile-photo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 18px 0 12px;
+            font-size: clamp(2.8rem, 5vw, 5.2rem);
+            line-height: 0.96;
+            letter-spacing: -0.05em;
+        }
+
+        .lead {
+            margin: 0;
+            max-width: 760px;
+            color: var(--muted);
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.015);
+            font-size: 0.9rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px 26px;
+            align-items: start;
+        }
+
+        .content-grid > .section-card {
+            min-width: 0;
+        }
+
+        .content-grid > .section-card:nth-child(odd) {
+            grid-column: 1;
+        }
+
+        .content-grid > .section-card:nth-child(even) {
+            grid-column: 2;
+            margin-top: 52px;
+        }
+
+        .experience {
+            grid-column: 1 / -1 !important;
+            margin-top: 0 !important;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            font-size: 0.88rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--soft);
+        }
+
+        .about p,
+        .card li,
+        .small-text,
+        .timeline p,
+        .details p,
+        .details li {
+            color: var(--muted);
+        }
+
+        .about p {
+            margin: 0;
+            font-size: 1.02rem;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .job {
+            display: grid;
+            gap: 10px;
+            align-items: start;
+            min-width: 0;
+            width: calc(50% - 12px);
+            position: relative;
+        }
+
+        .job:nth-child(odd) {
+            align-self: flex-start;
+        }
+
+        .job:nth-child(even) {
+            align-self: flex-end;
+            margin-top: 0;
+        }
+
+        .job .entry-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            width: 100%;
+        }
+
+        .job:nth-child(odd) .entry-row {
+            justify-content: space-between;
+        }
+
+        .job:nth-child(even) .entry-row {
+            justify-content: space-between;
+        }
+
+        .job:nth-child(odd) .entry-logo {
+            width: 110px;
+            height: 110px;
+            margin-left: auto;
+            transform: translateX(22px);
+        }
+
+        .job:nth-child(even) .entry-copy {
+            order: 1;
+        }
+
+        .job:nth-child(even) .entry-logo {
+            width: 110px;
+            height: 110px;
+            order: 2;
+            margin-left: auto;
+            transform: translateX(22px);
+        }
+
+        .job:nth-child(odd) .entry-logo.small-logo,
+        .job:nth-child(even) .entry-logo.small-logo {
+            width: 72px;
+            height: 72px;
+        }
+
+        .entry-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .entry-copy {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .date {
+            padding-top: 8px;
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .details {
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+        }
+
+        .entry-logo {
+            width: 62px;
+            height: 62px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            overflow: visible;
+            padding: 0;
+        }
+
+        .entry-logo img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        .details h3 {
+            margin: 0 0 8px;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        .details p {
+            margin: 0 0 10px;
+        }
+
+        .details ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .details li + li {
+            margin-top: 6px;
+        }
+
+        .edu-list,
+        .mini-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .edu-item,
+        .mini-item {
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+        }
+
+        .edu-item,
+        .mini-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .edu-item strong,
+        .mini-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .edu-copy {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .skill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.014);
+            color: var(--text);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid > .section-card:nth-child(odd),
+            .content-grid > .section-card:nth-child(even),
+            .experience {
+                grid-column: 1;
+                margin-top: 0;
+            }
+
+            .timeline {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .job {
+                width: 100%;
+                align-self: stretch;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 24px 14px 60px;
+            }
+
+            .section-card {
+                padding: 18px 16px 16px;
+                border-radius: 16px;
+            }
+
+            .job {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .date {
+                padding-top: 0;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="page-shell">
+        <header class="section-card hero">
+            <div class="hero-top">
+                <div class="profile-photo">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Portrait of Maximilian Ley" />
+                </div>
+                <div>
+                    <span class="eyebrow">M.Sc. Candidate · Cybersecurity</span>
+                    <h1>Maximilian Ley</h1>
+                </div>
+            </div>
+            <p class="lead">Cybersecurity student and software engineer combining SAP, cloud, backend systems, and applied AI into practical digital solutions.</p>
 
-    <!-- Animated background -->
-    <div class="background">
-        <div class="blob"></div>
+            <div class="contact-row">
+                <a class="pill" href="mailto:maximilianthomasley@gmail.com">maximilianthomasley@gmail.com</a>
+                <a class="pill" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer">GitHub</a>
+                <span class="pill">Saarbrücken, Germany</span>
+                <span class="pill">+49 174 8314351</span>
+            </div>
+        </header>
+
+        <main class="content-grid">
+            <section class="section-card about">
+                <h2>About Me</h2>
+                <p>Italian mother, German father, born in Malaysia and raised in Brazil. In my free time, I enjoy composing music on my synthesizer, playing piano, soccer, and Kung Fu. I also work on an independent mobile website project and enjoy exploring algorithmic complexity and convex optimization methods for hard problems.</p>
+            </section>
+
+            <section class="section-card">
+                <h2>Certifications</h2>
+                <ul class="mini-list">
+                    <li class="mini-item">
+                        <div class="edu-copy">
+                            <strong>SAP Certified - Backend Developer ABAP Cloud</strong>
+                            <span class="small-text">C_ABAPD</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP logo" />
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="section-card experience">
+                <h2>Experience</h2>
+                <div class="timeline">
+                    <article class="job">
+                        <div class="date">2025 – Present</div>
+                        <div class="details">
+                            <div class="entry-row">
+                                <div class="entry-copy">
+                                    <h3>SAP Consulting / dinext GmbH</h3>
+                                    <p>Saarbrücken</p>
+                                    <ul>
+                                        <li>Clean-core and RAP compliant ABAP development</li>
+                                        <li>SAP BTP configuration and side-by-side extensibility</li>
+                                        <li>SAP Identity Access Management configuration</li>
+                                        <li>On-stack extensibility in S/4HANA Public Cloud</li>
+                                        <li>Business Add-in (BAdI) implementation and Key-User Extension customization</li>
+                                        <li>Custom Fiori UI configuration and development</li>
+                                        <li>Initial onboarding of new employees</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-logo">
+                                    <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="job">
+                        <div class="date">2023</div>
+                        <div class="details">
+                            <div class="entry-row">
+                                <div class="entry-copy">
+                                    <h3>Digitalizing the Forest</h3>
+                                    <p>Forestry Office / Heilbronn University</p>
+                                    <ul>
+                                        <li>Prototype for measuring plant height using light measurements</li>
+                                        <li>Research, planning and implementation of a data exchange infrastructure</li>
+                                        <li>Testing and evaluation of environmental sensor data</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-logo">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="job">
+                        <div class="date">2023</div>
+                        <div class="details">
+                            <div class="entry-row">
+                                <div class="entry-copy">
+                                    <h3>Digitalization: Online City Portal</h3>
+                                    <p>Heilbronn University / City of Heilbronn</p>
+                                    <ul>
+                                        <li>Refactoring the backend of the city portal website</li>
+                                        <li>Improving digital processes for online forms and local administrative workflows</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-logo small-logo">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Wappen_Heilbronn.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="City of Heilbronn coat of arms" />
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="job">
+                        <div class="date">2021 – 2022</div>
+                        <div class="details">
+                            <div class="entry-row">
+                                <div class="entry-copy">
+                                    <h3>IT Administration</h3>
+                                    <p>Illig Maschinenbau GmbH</p>
+                                    <ul>
+                                        <li>Maintenance of SAP and Windows Active Directory user policies</li>
+                                        <li>Intranet restructuring workshop and support</li>
+                                        <li>Material ordering via SAP R/3</li>
+                                        <li>Training and onboarding of new employees</li>
+                                        <li>IT hotline support</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-logo">
+                                    <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="job">
+                        <div class="date">2018 – 2019</div>
+                        <div class="details">
+                            <div class="entry-row">
+                                <div class="entry-copy">
+                                    <h3>AI / Thrust Ltd.</h3>
+                                    <p>Rio de Janeiro</p>
+                                    <ul>
+                                        <li>Pattern recognition through neural network implementations</li>
+                                        <li>Web development work</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-logo small-logo">
+                                    <img src="https://www.thrust.com.br/img/logos/thrust-white.png" alt="Thrust logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2>Education</h2>
+                <ul class="edu-list">
+                    <li class="edu-item">
+                        <div class="edu-copy">
+                            <strong>M.Sc. Cybersecurity</strong>
+                            <span class="small-text">Saarland University · ongoing</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://www.uni-saarland.de/typo3conf/ext/uni_saarland/Resources/Public/Images/logo_uni_saarland.svg" alt="Saarland University logo" />
+                        </div>
+                    </li>
+                    <li class="edu-item">
+                        <div class="edu-copy">
+                            <strong>B.Sc. Applied Computer Science</strong>
+                            <span class="small-text">Heilbronn University of Applied Sciences · 2024</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                        </div>
+                    </li>
+                    <li class="edu-item">
+                        <div class="edu-copy">
+                            <strong>B.Sc. Games Engineering</strong>
+                            <span class="small-text">Technical University Munich · 2018</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://www.tum.de/typo3conf/ext/in2template/Resources/Public/Images/Backend/tum-logo.svg" alt="Technical University of Munich logo" />
+                        </div>
+                    </li>
+                    <li class="edu-item">
+                        <div class="edu-copy">
+                            <strong>STEM Orientation Semester</strong>
+                            <span class="small-text">Technical University Munich · 2016</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://www.tum.de/typo3conf/ext/in2template/Resources/Public/Images/Backend/tum-logo.svg" alt="Technical University of Munich logo" />
+                        </div>
+                    </li>
+                    <li class="edu-item">
+                        <div class="edu-copy">
+                            <strong>High School</strong>
+                            <span class="small-text">German School Rio de Janeiro · 2007–2015</span>
+                        </div>
+                        <div class="entry-logo">
+                            <img src="https://www.eacorcovado.com.br/themes/eacorcovado/img/logo.png" alt="German School Rio logo" />
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2>Skills</h2>
+                <div class="skill-grid">
+                    <span class="chip">ABAP Cloud</span>
+                    <span class="chip">SAP BTP</span>
+                    <span class="chip">S/4HANA</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">C/C++</span>
+                    <span class="chip">Java</span>
+                    <span class="chip">Kotlin</span>
+                    <span class="chip">Swift</span>
+                    <span class="chip">Flutter</span>
+                    <span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">PostgreSQL</span>
+                    <span class="chip">Open SQL</span>
+                    <span class="chip">CDS</span>
+                    <span class="chip">PyTorch</span>
+                    <span class="chip">AutoKeras</span>
+                    <span class="chip">GANs</span>
+                    <span class="chip">Distributed Systems</span>
+                    <span class="chip">DNS / IPv4 / IPv6</span>
+                    <span class="chip">Firewalls</span>
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2>Languages</h2>
+                <ul class="mini-list">
+                    <li class="mini-item"><strong>German</strong> Native proficiency</li>
+                    <li class="mini-item"><strong>Italian</strong> Native proficiency</li>
+                    <li class="mini-item"><strong>English</strong> C1</li>
+                    <li class="mini-item"><strong>Portuguese</strong> C1</li>
+                    <li class="mini-item"><strong>Spanish</strong> B2</li>
+                    <li class="mini-item"><strong>Mandarin</strong> HSK1</li>
+                    <li class="mini-item"><strong>Korean</strong> A1</li>
+                    <li class="mini-item"><strong>Japanese</strong> JLPT N5</li>
+                </ul>
+            </section>
+        </main>
     </div>
-
-    <!-- Website content -->
-    <main class="content">
-        <h1>My Website</h1>
-    </main>
-
 </body>
 </html>
+
