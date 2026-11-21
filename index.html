@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" itemprop="image" content="/profilo_sfondo_edit.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Maximilian Ley />
+    <meta property="og:description" content="Curriculum & Portfolio of Maximilian Ley" />
+    <meta property="og:url" content="https://maximilianley.github.io" />
+    <meta property="og:site_name" content="Maximilian Ley" />
+
     <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=2" />
     <title>Maximilian Ley | CV</title>
     <style>
         :root {
             --bg: #0a0d12;
             --bg-2: #111827;
-            --panel: rgba(28, 12, 28, 0.1);
+            --panel: rgba(4, 0, 0, 0.6);
             --panel-strong: rgba(17, 23, 32, 0.95);
             --panel-hover: rgba(24, 30, 42, 0.96);
             --border: rgba(199, 204, 212, 1.0);
@@ -948,20 +955,24 @@
             <article class="project-card">
                 <h2>S/4HANA Public Cloud Custom Accruals Integration</h2>
                 <p class="project-period">September 2025 – November 2026</p>
-                <p class="plain-text">Development of a custom on-stack integration managing company accruals and deferrals on the S/4HANA Public Cloud System. Custom application meant to be offered to small to mid-sized enterprises across the DACH region employing SAP's Public Cloud system. Development enhances system functionality for managing and creating invoices, which the S/4 Tenant does not natively support.</p>
+                <p class="plain-text">Development of a custom on-stack integration managing company accruals and deferrals on the S/4HANA Public Cloud System. Custom application meant to be offered to small to mid-sized enterprises across the DACH region employing SAP's Public Cloud system. Development enhances system functionality for managing and creating invoices at position-level granularity, which the native S/4 System does not sufficiently support.</p>
                 <ul class="plain-text project-tasks">
-                    <!--li>Designed a responsive event listing and detail page.</li>
-                    <li>Built filters for event dates and categories.</li>
-                    <li>Tested navigation on phones and tablets.</li-->
+                    <li>in-app/key-user exetensibility</li>
+                    <li>custom fields integration</li>
+                    <li>S/4HANA Public Cloud on-stack custom RAP-compliant development</li>
+                    <li>implementation of the SOAP API for generating Journal Entries</li>
+                    <li>implementation of a custom pipeline for reading Supplier Invoices</li>
+                    <li>recurring Application Jobs for triggering accrual processing logic</li>
+                    <li>internal representation of invoice data</li>
+                    <li>database table processing with Open SQL</li>
                 </ul>
                 <div class="skills">
                     <span class="chip">S/4</span>
                     <span class="chip">ABAP Cloud</span>
                     <span class="chip">RAP</span>
-                    <span class="chip">ABAP SQL</span>
+                    <span class="chip">Open SQL</span>
                     <span class="chip">IAM</span>
                     <span class="chip">SOAP</span>
-                    <span class="chip">BaDI Enhancements</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> <span class="project-source-nda">NDA</span></footer>
             </article>
@@ -971,6 +982,7 @@
                 <p class="plain-text">Full rollout of the S/4HANA Public Cloud System for a client in Germany. Project phases include onboarding, configuration and migration of master data to the cloud tenant. Part of the technical consulting team responsible for advising on on-stack and side-by-side integrations.</p>
                 <ul class="plain-text project-tasks">
                     <li>inventory and infrastructure discovery of the client's IT landscape</li>
+                    <li>system architecture design for planned client integrations</li>
                     <li>cost estimation for integrating services on the BTP, including payment processors and 3PL supplier APIs</li> <!-- 3PL Anbindung -->
                     <li>analysis of Amazon's payment system integration in BTP's Integration Suite</li>
                     <li>supply data synchronisation between payment processor, S/4 Cloud Tenant and 3PL supplier</li> <!-- Zahlungsabwicklung -->
@@ -991,13 +1003,23 @@
                 <p class="project-period">January 2025 – November 2026</p>
                 <p class="plain-text">Discovery of the S/4 HANA Public Cloud and BTP stack. First internal developer for pioneering cloud technology of SAP's ERP Systems. Assistance in migrating company's knowledge base from SAP ByD to the S/4HANA Public Cloud.</p>
                 <ul class="plain-text project-tasks">
+                    <li>RAP-model compliant development</li>
+                    <li>ABAP Dev Tools</li>
+                    <li>freestyle and template-based Fiori App Development with BTP Business Application Studio</li>
+                    <li>enhancing Business Object functionality via Enhancement Spots for BAdIs</li>
+                    <li>Identity and Access Management with ADT for custom integrations</li>
+                    <li>configuration and environment setup of BTP subaccounts</li>
+                    <li>running unit tests via ADT's Test Cockpit</li>
                 </ul>
                 <div class="skills">
-                    <!--span class="chip">HTML</span>
-                    <span class="chip">CSS</span>
-                    <span class="chip">JavaScript</span>
-                    <span class="chip">Responsive Design</span>
-                    <span class="chip">Mobile Testing</span-->
+                    <span class="chip">ABAP</span>
+                    <span class="chip">ABAP Dictionary</span>
+                    <span class="chip">CDS</span>
+                    <span class="chip">SAPUI5</span>
+                    <span class="chip">BAS</span>
+                    <span class="chip">IAM</span>
+                    <span class="chip">ADT</span>
+                    <span class="chip">BaDI Enhancements</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> <span class="project-source-nda">NDA</span></footer>
             </article>
@@ -1006,16 +1028,19 @@
                 <p class="project-period">August 2026 – September 2026</p>
                 <p class="plain-text">Framework for generating random cryptographic capture-the-flag challenges based around a reversible nonce-generation mechanism. Produced challenges are meant to stress test LLM's cryptographic capabilities. The LLM's ability to solve the challenge instance is tested by expressing the recursive nonce generator as an arbitrary collection of permutated and nested quadratic, linear and constant terms. Implementation includes verification of a generated challenge for guaranteed solvability. Extension to similar and more involved cryptographic vulnerabilities possible.</p>
                 <ul class="plain-text project-tasks">
-                    <!--li>Designed a responsive event listing and detail page.</li>
-                    <li>Built filters for event dates and categories.</li>
-                    <li>Tested navigation on phones and tablets.</li-->
+                    <li>quadratic nonce generation</li>
+                    <li>exploitation via linear substitution</li>
+                    <li>verification of challenge solvability</li>
+                    <li>difficulty tuning for nonce expression depth</li>
+                    <li>LLM capability testing with domain-specific hinting</li>
+                    <li>data contamination robustness</li>
                 </ul>
                 <div class="skills">
-                    <!--span class="chip">HTML</span>
-                    <span class="chip">CSS</span>
-                    <span class="chip">JavaScript</span>
-                    <span class="chip">Responsive Design</span>
-                    <span class="chip">Mobile Testing</span-->
+                    <span class="chip">Cryptography</span>
+                    <span class="chip">CTF</span>
+                    <span class="chip">LLM-Agents</span>
+                    <span class="chip">Offensive Security</span>
+                    <span class="chip">LangChain</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/crypto_ctf_procedural" target="_blank" rel="noopener">Crypto CTF</a></footer>
             </article>
@@ -1024,16 +1049,18 @@
                 <p class="project-period">April 2026 – June 2026</p>
                 <p class="plain-text">Build and deployment of a zero-knowledge prooving pipeline tailored to LLM-agents in productive environments. The implementation is a Proof-of-Concept showcasing how proof circuits can be generated and accumulated via a folding mechanism, thus enabling incremental verification (IVC). Use of this mechanism is in general intended for systems continuously producing outputs which need to be verified for correctness and compliance against an established policy. In particular, the PoC can be applied to agentic environments in which the continuously increasing trace of the agent's activity (e.g. tool calls) can be efficiently translated into a proof circuit via IVC. Practical use-cases may include automated trading agents, banking services integrating agents and automated processes in healthcare (e.g. management of medical data).</p>
                 <ul class="plain-text project-tasks">
-                    <!--li>Designed a responsive event listing and detail page.</li>
-                    <li>Built filters for event dates and categories.</li>
-                    <li>Tested navigation on phones and tablets.</li-->
+                    <li>real-time proof circuit generation</li>
+                    <li>evaluation of R1CS circuits</li>
+                    <li>incremental verification of agent traces</li>
+                    <li>policy enforcement via circuit expressions</li>
                 </ul>
                 <div class="skills">
-                    <!--span class="chip">HTML</span>
-                    <span class="chip">CSS</span>
-                    <span class="chip">JavaScript</span>
-                    <span class="chip">Responsive Design</span>
-                    <span class="chip">Mobile Testing</span-->
+                    <span class="chip">NOVA</span>
+                    <span class="chip">Folding</span>
+                    <span class="chip">IVC</span>
+                    <span class="chip">LLM-Agents</span>
+                    <span class="chip">LangChain</span>
+                    <span class="chip">Rust</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/agents_zktrace" target="_blank" rel="noopener">ZK-Trace</a></footer>
             </article>
@@ -1042,16 +1069,26 @@
                 <p class="project-period">June 2022 – September 2024</p>
                 <p class="plain-text">Business concept, design and development of a mobile web-application. The service provides the creation of digital passes, which users can utlize to organize an event, form a group (e.g. culb or society) or any other use case which requires identification of members. The platform additionally offers the capability to define dependencies between passes, enabling membership hierarchies, and the possibility for flexible membership negotiation between a passe's purchaser and owner.</p>
                 <ul class="plain-text project-tasks">
-                    <!--li>Designed a responsive event listing and detail page.</li>
-                    <li>Built filters for event dates and categories.</li>
-                    <li>Tested navigation on phones and tablets.</li-->
+                    <li>full-stack development of a mobile web-application.</li>
+                    <li>backend logic implementation for server response functionality</li>
+                    <li>socket communication and server-side multi-client connection handling</li>
+                    <li>server-side data management of user data</li>
+                    <li>dynamic serving of web resources</li>
+                    <li>proxy server setup for IPv4-to-IPv6 packet routing</li>
+                    <li>Network Address Translation and firewall configuration for local server reachability</li>
+                    <li>registration of public domain and SSL certificate for HTTPS communication</li>
+                    <li>full front-end design and UX studies for end-user experience</li>
+                    <li>integration PayPal payment processor</li>
+                    <li>business concept development</li>
                 </ul>
                 <div class="skills">
-                    <!--span class="chip">HTML</span>
+                    <span class="chip">HTML</span>
                     <span class="chip">CSS</span>
                     <span class="chip">JavaScript</span>
                     <span class="chip">Responsive Design</span>
-                    <span class="chip">Mobile Testing</span-->
+                    <span class="chip">Web-APP</span>
+                    <span class="chip">Python</span>
+                    <span class="chip">Networking</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
             </article>
@@ -1060,16 +1097,20 @@
                 <p class="project-period">September 2023 – December 2023</p>
                 <p class="plain-text">Implementation of a prototype for measuring plant height based on light measurements with I&sup2;C photodiodes. The setup allows for an automated monitoring process of a dedicated forest area, improving task efficiency of forestry workers by enabling continuous remote rather than on-site monitoring. Research, planning and implementation of an infrastructure for data exchange within a forest via the LoRa-WAN protocol. Interpretation of sensor data, communication pipeline from antenna to lightweight REST API to end-device of the forestry worker. Testing and evaluation of sensor data.</p>
                 <ul class="plain-text project-tasks">
-                    <!--li>Designed a responsive event listing and detail page.</li>
-                    <li>Built filters for event dates and categories.</li>
-                    <li>Tested navigation on phones and tablets.</li-->
-                </ul> <!-- DAS REPOOO!!!!   https://github.com/informatik-heilbronn/transparenz-cockpit  -->
+                    <li>energy efficient sensor control</li>
+                    <li>dynamic adjustment of wake-up cycles based on brightness conditions</li>
+                    <li>development of a monitoring app in Kotlin for android devices of forestry workers</li>
+                    <li>sensor light data transmission over distances ranging 100m via LoRa-WAN</li>
+                    <li>cost estimation for mass rollout of measurement prototype for productive use in forestry administration</li>
+                </ul>
                 <div class="skills">
-                    <!--span class="chip">HTML</span>
-                    <span class="chip">CSS</span>
-                    <span class="chip">JavaScript</span>
-                    <span class="chip">Responsive Design</span>
-                    <span class="chip">Mobile Testing</span-->
+                    <span class="chip">C</span>
+                    <span class="chip">ESP32</span>
+                    <span class="chip">BH1750</span>
+                    <span class="chip">I&sup2;C</span>
+                    <span class="chip">LoRa-WAN</span>
+                    <span class="chip">Kotlin</span>
+                    <span class="chip">Hardware Development</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
             </article>
@@ -1093,8 +1134,18 @@
                 <p class="project-period">September 2021 – March 2022</p>
                 <p class="plain-text">Fulltime intern at the IT department of one of the world's leading thermoforming and packaging solutions providers. Department consisting of 8 administrators responsible for running and maintaining the entire company's IT-infrastructure, ensuring stability of business operations comprising company HQ and subsidiaries across Europe for 800+ employees.</p>
                 <ul class="plain-text project-tasks">
+                    <li>employee access management via Windows Active Directory</li>
+                    <li>policy definition in Windows AD</li>
+                    <li>on- and off-boarding of employees</li>
+                    <li>IT-hotline support</li>
+                    <li>creation and resolution of tickets</li>
+                    <li>maintenance of company servers and data backup</li>
+                    <li>material ordering via SAP R/3</li>
                 </ul>
                 <div class="skills">
+                    <span class="chip">Windows AD</span>
+                    <span class="chip">SAP R/3</span>
+                    <span class="chip">IT Support</span>
                 </div>
                 <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
             </article>
@@ -1121,7 +1172,7 @@
             <article class="project-card">
                 <h2>ML Developer</h2>
                 <p class="project-period">November 2018 – July 2019</p>
-                <p class="plain-text">Development of ML-based monitoring software. Implementation and training of a custom convolutional network for numerical digit classification. Solution is built for local brazilian law enforcement departments to aid in automating number plate recognition from live camera feeds of traffic. Training performed with the MNIST dataset of handwritten digits, model built with AutoKeras.</p>
+                <p class="plain-text">Development of ML-based monitoring software. Implementation and training of a custom convolutional network for numerical digit classification. Solution is built for local brazilian law enforcement departments to aid in automating number plate recognition from live camera feeds of street traffic. Training performed with the MNIST dataset of handwritten digits. Model built with AutoKeras.</p>
                 <ul class="plain-text project-tasks">
                 </ul>
                 <div class="skills">
