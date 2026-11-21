@@ -1,46 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="256x256" href="favicon.png?v=2" />
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maximilian Ley | CV</title>
-
     <style>
         :root {
-            --bg: #0b0d12;
-            --panel: transparent;
-            --panel-hover: rgba(255, 255, 255, 0.015);
-            --stroke: transparent;
-            --stroke-strong: transparent;
-            --text: #f4f7ff;
-            --muted: #bcc5da;
-            --soft: #8b92a9;
-            --accent: #d9e3ff;
-            --shadow: none;
+            --bg: #0a0d12;
+            --bg-2: #111827;
+            --panel: rgba(28, 12, 28, 0.1);
+            --panel-strong: rgba(17, 23, 32, 0.95);
+            --panel-hover: rgba(24, 30, 42, 0.96);
+            --border: rgba(199, 204, 212, 1.0);
+            --text: #edf2ff;
+            --muted: #d5d8de;
+            --soft: #7e8ea8;
+            --accent: #dfe9ff;
+            --accent-2: #b7c9ff;
+            --nav-text: var(--muted);
+            --nav-text-active: var(--accent);
+            --nav-highlight: #040104;
+            --projects-photo-x: -20%;
+            --projects-photo-duration: 2.6s; /* this is the "move left" animation */
+            --projects-photo-fade-in-duration: 1.0s;
+            --projects-photo-fade: 15%;/*30%;*/
+            --projects-photo-fade-end: 75%/*80%*/;
+            --projects-title-delay: 1.0s;
+            --projects-title-fade-in-duration: 1.6s; /* was 1.6s */
+            --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
-        html,
-        body {
+        html, body {
             margin: 0;
             width: 100%;
             min-height: 100%;
         }
 
         body {
-            min-height: 100vh;
-            background: var(--bg);
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(10, 13, 18, 0.20) 00%,
+                    rgba(10, 13, 18, 0.60) 30%,
+                    rgba(10, 13, 18, 0.60) 30.01%,
+                    rgba(10, 13, 18, 0.70) 45%,
+                    rgba(10, 13, 18, 0.80) 70%,
+                    rgba(10, 13, 18, 0.90) 100%
+                ),
+                url('drachen.png') center center / cover no-repeat fixed;
             color: var(--text);
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            letter-spacing: 0.01em;
+            line-height: 1.55;
             position: relative;
+            overflow-x: clip;
+        }
+
+        @keyframes bgFloat {
+            0% {
+                transform: translate3d(-2%, -1%, 0) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate3d(2%, 2%, 0) scale(1.06);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(0, 1%, 0) scale(1);
+                opacity: 0.76;
+            }
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: -10% -10% auto auto;
+            width: 44vw;
+            height: 44vw;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            animation: none;
+        }
+
+        body::before {
+            background: rgba(127, 86, 255, 0.18);
+            top: 4%;
+            left: -8%;
+        }
+
+        body::after {
+            background: rgba(86, 126, 255, 0.16);
+            top: 52%;
+            right: -8%;
         }
 
         a {
@@ -48,624 +104,824 @@
             text-decoration: none;
         }
 
-        @keyframes backgroundDrift {
-            0% {
-                transform: translate3d(-2%, -1%, 0) scale(1);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translate3d(2%, 2%, 0) scale(1.08);
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(-1%, 1%, 0) scale(1);
-                opacity: 0.85;
-            }
+        .page {
+            position: relative;
+            z-index: 1;
+            width: min(1060px, calc(100% - 34px));
+            margin: 30px auto 60px;
         }
 
-        body::before {
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(0, 1fr);
+            width: 100%;
+            margin: 0 0 22px;
+        }
+
+        .site-nav a + a::before {
             content: "";
+            position: absolute;
+            inset: 0% auto 0% 0;
+            border-left: 0px solid var(--accent);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .site-nav a {
+            position: relative;
+            padding: 10px 12px;
+            color: var(--nav-text);
+            font-size: 0.9rem;
+            text-align: center;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .site-nav a:hover,
+        .site-nav a[aria-current="page"] {
+            color: var(--nav-text-active);
+        }
+
+        .site-nav a:hover {
+            background-color: color-mix(in srgb, var(--nav-highlight) 25%, transparent);
+        }
+
+        .site-nav a[aria-current="page"] {
+            background-color: color-mix(in srgb, var(--nav-highlight) 45%, transparent);
+            font-weight: 700;
+        }
+
+        .site-nav a:focus-visible {
+            outline: 2px solid var(--accent-2);
+            outline-offset: -2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .site-nav a {
+                transition: none;
+            }
+        }
+
+        .portfolio-view {
+            margin-top: 0;
+        }
+
+        .site-nav:has(a[href="#projects"][aria-current="page"]),
+        .site-nav:has(a[href="#contact"][aria-current="page"]) {
             position: fixed;
+            left: 0;
+            margin-bottom: 0;
+        }
+
+        .projects-hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: center;
+            min-height: 100svh;
+            overflow: clip;
+        }
+
+        .projects-hero::before {
+            content: "";
+            position: absolute;
             inset: 0;
-            z-index: -2;
-            background:
-                radial-gradient(
-                    ellipse at 25% 25%,
-                    rgba(157, 85, 255, 0.22) 0%,
-                    rgba(21, 0, 21, 0.12) 28%,
-                    transparent 52%
-                ),
-                radial-gradient(
-                    ellipse at 75% 70%,
-                    rgba(89, 103, 255, 0.18) 0%,
-                    rgba(21, 0, 21, 0.12) 32%,
-                    transparent 68%
-                );
-            filter: blur(80px);
-            opacity: 1;
-            animation: backgroundDrift 18s ease-in-out infinite alternate;
+            background: url('profilo_sfondo_edit.jpg') center / cover no-repeat;
+            mask-image: linear-gradient(
+                to right,
+                #000 calc(var(--projects-photo-fade-end) - var(--projects-photo-fade)),
+                transparent var(--projects-photo-fade-end)
+            );
+            transform: translateX(var(--projects-photo-x));
+            pointer-events: none;
         }
 
-        .page-shell {
-            max-width: 1060px;
-            margin: 0 auto;
-            padding: 48px 18px 80px;
+        .contact-content {
+            position: relative;
+            grid-column: 2;
+            min-width: 0;
+            padding: 70px clamp(8px, 3vw, 48px) 30px;
+            padding-left: clamp(32px, 6vw, 96px);
         }
 
-        .section-card {
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 10px 0 12px;
-            box-shadow: none;
+        .projects-hero .projects-title {
+            position: relative;
+            grid-column: 2;
+            padding: 0 clamp(8px, 3vw, 48px);
+            font-size: clamp(1.75rem, 6vw, 6rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-align: center;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            #projects-view:not([hidden]) .projects-hero::before {
+                animation:
+                    projects-photo-enter var(--projects-photo-duration) cubic-bezier(0.22, 1, 0.36, 1),
+                    projects-fade-in var(--projects-photo-fade-in-duration) ease-out;
+            }
+
+            #projects-view:not([hidden]) .projects-title {
+                animation: projects-fade-in var(--projects-title-fade-in-duration) ease-out var(--projects-title-delay) backwards;
+            }
+        }
+
+        @keyframes projects-photo-enter {
+            from { transform: translateX(0%); }
+            to { transform: translateX(var(--projects-photo-x)); }
+        }
+
+        @keyframes projects-fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            padding: 0 6px;
+        }
+
+        .topbar .eyebrows {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 10px;
+            border: 0px solid var(--border);
+            color: var(--accent); /*var(--soft);*/
+            background: rgba(255,255,255,0.015);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .topbar .meta {
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
         .hero {
-            margin-bottom: 22px;
-            padding-top: 28px;
-            padding-bottom: 26px;
-        }
-
-        .hero-top {
-            display: flex;
-            align-items: center;
+            --avatar-size: clamp(150px, 20vw, 180px);
+            display: grid;
+            grid-template-columns: var(--avatar-size) 1fr;
             gap: 22px;
-            margin-bottom: 18px;
+            align-items: center;
+            padding: 28px 0 18px;
         }
 
-        .profile-photo {
-            width: 110px;
-            height: 110px;
+        .avatar {
+            width: var(--avatar-size);
+            height: var(--avatar-size);
             border-radius: 50%;
             overflow: hidden;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 18px 30px rgba(0,0,0,0.2);
         }
 
-        .profile-photo img {
+        .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .eyebrow {
-            display: inline-block;
-            padding: 7px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 0.72rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+        h1 {
+            margin: 0;
+            font-size: clamp(2.6rem, 5vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -0.08em;
         }
 
-        h1 {
-            margin: 18px 0 12px;
-            font-size: clamp(2.8rem, 5vw, 5.2rem);
-            line-height: 0.96;
-            letter-spacing: -0.05em;
+        .hero-copy {
+            display: grid;
+            gap: 10px;
         }
 
         .lead {
             margin: 0;
             max-width: 760px;
             color: var(--muted);
-            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
-        .contact-row {
+        .lead_white {
+            margin: 0;
+            max-width: 760px;
+            color: var(--accent);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .contacts {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 8px;
         }
 
         .pill {
             display: inline-flex;
             align-items: center;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 999px;
+            min-height: 32px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.018);
             color: var(--muted);
-            background: rgba(255, 255, 255, 0.015);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
         }
 
-        .content-grid {
+        .pill:hover {
+            border-color: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-1px);
+        }
+
+        .pill_white {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.018);
+            color: var(--accent);
+            font-size: 0.85rem;
+            transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .pill_white:hover {
+            border-color: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.03);
+            transform: translateY(-1px);
+        }
+
+        .contact-icon {
+            flex: 0 0 auto;
+            width: 1.1em;
+            height: 1.1em;
+            margin-inline-end: 0.45em;
+            object-fit: contain;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .cv-download {
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px 12px;
+        }
+
+        .cv-download .contact-icon {
+            width: 1.5em;
+            height: 1.5em;
+            margin-inline-end: 0;
+        }
+
+        .layout {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px 26px;
-            align-items: start;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
         }
 
-        .content-grid > .section-card {
-            min-width: 0;
+        .panel {
+            background: transparent;
+            border: none !important;
+            box-shadow: none;
+            padding: 22px 20px;
+            transition: transform 0.2s ease;
         }
 
-        .content-grid > .section-card:nth-child(odd) {
-            grid-column: 1;
+        .panel:hover {
+            background: transparent;
+            border: none !important;
+            transform: translateY(-1px);
         }
 
-        .content-grid > .section-card:nth-child(even) {
-            grid-column: 2;
-            margin-top: 52px;
-        }
-
-        .thrust-logo {
-            display: none !important;
-        }
-
-        .experience {
-            grid-column: 1 / -1 !important;
-            margin-top: 0 !important;
-        }
-
-        h2 {
-            margin: 0 0 18px;
-            font-size: 0.88rem;
-            letter-spacing: 0.12em;
+        .panel h2 {
+            margin: 0 0 14px;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--soft);
+            font-weight: 700;
         }
 
-        .about p,
-        .card li,
-        .small-text,
-        .timeline p,
-        .details p,
-        .details li {
+        .view-heading {
+            margin: 0 0 18px;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .plain-text {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        .project-card {
+            padding: clamp(18px, 4vw, 36px);
+            border: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .project-card + .project-card {
+            margin-top: 24px;
+        }
+
+        .project-card h2 {
+            margin: 0 0 4px;
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            line-height: 1.2;
+        }
+
+        .project-period {
+            margin: 0 0 16px;
+            color: var(--accent-2);
+            font-size: 0.85rem;
+        }
+
+        .project-tasks {
+            margin: 12px 0 0;
+            padding-inline-start: 1.25em;
+            font-size: 0.92rem;
+        }
+
+        .project-card .skills {
+            margin-top: 16px;
+        }
+
+        .project-source {
+            margin: 18px 0 0;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            color: var(--accent-2);
+            font-size: 0.85rem;
+        }
+
+        .project-source strong,
+        .project-source .project-source-nda {
             color: var(--muted);
         }
 
-        .about p {
-            margin: 0;
-            font-size: 1.02rem;
-        }
-
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .job {
-            display: grid;
-            gap: 10px;
-            align-items: start;
-            min-width: 0;
-            width: calc(50% - 12px);
-            position: relative;
-        }
-
-        .job:nth-child(odd) {
-            align-self: flex-start;
-        }
-
-        .job:nth-child(even) {
-            align-self: flex-end;
-            margin-top: 0;
-        }
-
-        .job .entry-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            width: 100%;
-        }
-
-        .job:nth-child(odd) .entry-row {
-            justify-content: space-between;
-        }
-
-        .job:nth-child(even) .entry-row {
-            justify-content: space-between;
-        }
-
-        .job:nth-child(odd) .entry-logo {
-            width: 110px;
-            height: 110px;
-            margin-left: auto;
-            transform: translateX(22px);
-        }
-
-        .job:nth-child(even) .entry-copy {
-            order: 1;
-        }
-
-        .job:nth-child(even) .entry-logo {
-            width: 110px;
-            height: 110px;
-            order: 2;
-            margin-left: auto;
-            transform: translateX(22px);
-        }
-
-        .job:nth-child(odd) .entry-logo.small-logo,
-        .job:nth-child(even) .entry-logo.small-logo {
-            width: 72px;
-            height: 72px;
-        }
-
-        .entry-row {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .entry-copy {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .date {
-            padding-top: 8px;
-            color: var(--accent);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .details {
-            padding: 0;
-            border: none;
-            border-radius: 0;
-            background: transparent;
-        }
-
-        .entry-logo {
-            width: 62px;
-            height: 62px;
-            flex-shrink: 0;
-            display: grid;
-            place-items: center;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-            overflow: visible;
-            padding: 0;
-        }
-
-        .entry-logo img {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: brightness(1.1) contrast(1.05);
-        }
-
-        .details h3 {
-            margin: 0 0 8px;
-            font-size: 1.2rem;
-            color: var(--text);
-        }
-
-        .details p {
-            margin: 0 0 10px;
-        }
-
-        .details ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        .details li + li {
-            margin-top: 6px;
-        }
-
-        .edu-list,
-        .mini-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .entry-list {
             display: grid;
             gap: 12px;
         }
 
-        .edu-item,
-        .mini-item {
-            padding: 0;
-            border: none;
-            border-radius: 0;
-            background: transparent;
+        .entry {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        .edu-item,
-        .mini-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
+        .entry:first-child {
+            border-top: none;
+            padding-top: 0;
         }
 
-        .edu-item strong,
-        .mini-item strong {
+        .entry:hover {
+            transform: translateX(2px);
+        }
+
+        .entry strong {
             display: block;
-            margin-bottom: 4px;
             color: var(--text);
             font-size: 1rem;
+            margin-bottom: 2px;
         }
 
-        .edu-copy {
-            flex: 1;
-            min-width: 0;
+        .entry small,
+        .entry .meta {
+            display: block;
+            color: var(--soft);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .skill-grid {
+        .entry p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .logo-box {
+            width: 64px;
+            height: 64px;
+            display: grid;
+            place-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: brightness(1.12);
+        }
+
+        .logo-box img.round-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .logo-box svg.tum-logo {
+            width: 80%;
+            height: 80%;
+        }
+
+        .logo-box img.compact-logo {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .logo-box img.city-logo {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+
+        .small-box {
+            width: 52px;
+            height: 52px;
+        }
+
+        .skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .chip {
-            display: inline-block;
-            padding: 8px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.014);
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
             color: var(--text);
-            font-size: 0.88rem;
+            font-size: 0.8rem;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
         }
 
-        @media (max-width: 900px) {
-            .content-grid {
+        .chip:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.14);
+            transform: translateY(-1px);
+        }
+
+        .two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        ul.clean-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        ul.clean-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        ul.clean-list li:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        ul.clean-list strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 820px) {
+            .layout,
+            .two-cols {
                 grid-template-columns: 1fr;
             }
 
-            .content-grid > .section-card:nth-child(odd),
-            .content-grid > .section-card:nth-child(even),
-            .experience {
-                grid-column: 1;
-                margin-top: 0;
+            .contact-hero {
+                display: block;
             }
 
-            .timeline {
-                display: flex;
-                flex-direction: column;
+            .contact-hero::before {
+                bottom: auto;
+                height: 55svh;
             }
 
-            .job {
-                width: 100%;
-                align-self: stretch;
+            .contact-content {
+                padding: 55svh 9px 30px;
             }
         }
 
-        @media (max-width: 640px) {
-            .page-shell {
-                padding: 24px 14px 60px;
+        @media (max-width: 560px) {
+            .page {
+                width: min(100% - 18px, 100%);
             }
 
-            .section-card {
-                padding: 18px 16px 16px;
-                border-radius: 16px;
-            }
-
-            .job {
+            .hero {
                 grid-template-columns: 1fr;
-                gap: 10px;
             }
 
-            .date {
-                padding-top: 0;
+            .topbar {
+                display: none;
             }
+
+            .panel {
+                padding: 18px 16px;
+            }
+
         }
     </style>
 </head>
-
 <body>
-    <div class="page-shell">
-        <header class="section-card hero">
-            <div class="hero-top">
-                <div class="profile-photo">
-                    <img src="foto_profilo.jpg" alt="Portrait of Maximilian Ley" />
-                </div>
-                <div>
-                    <span class="eyebrow">M.Sc. Candidate · Cybersecurity</span>
-                    <h1>Maximilian Ley</h1>
-                </div>
-            </div>
-            <p class="lead">Cybersecurity student and software engineer combining SAP, cloud, backend systems, and applied AI into practical digital solutions.</p>
+    <svg width="0" height="0" style="display: none" aria-hidden="true">
+        <symbol id="contact-icon-email" viewBox="0 0 24 24">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3 7 9 6 9-6" />
+        </symbol>
+        <symbol id="contact-icon-linkedin" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <path d="M8 11v6m4 0v-6m0 2a2.5 2.5 0 0 1 5 0v4" />
+            <circle cx="8" cy="8" r="0.5" fill="currentColor" />
+        </symbol>
+        <symbol id="contact-icon-location" viewBox="0 0 24 24">
+            <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z" />
+            <circle cx="12" cy="10" r="2.3" />
+        </symbol>
+        <symbol id="contact-icon-mobile" viewBox="0 0 24 24">
+            <rect x="6" y="2.5" width="12" height="19" rx="2" />
+            <path d="M10 18h4" />
+        </symbol>
+        <symbol id="download-icon" viewBox="0 0 24 24">
+            <path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4" />
+        </symbol>
+    </svg>
 
-            <div class="contact-row">
-                <a class="pill" href="mailto:maximilianthomasley@gmail.com">maximilianthomasley@gmail.com</a>
-                <a class="pill" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer">GitHub</a>
-                <span class="pill">Saarbrücken, Germany</span>
-                <span class="pill">+49 174 8314351</span>
+    <nav class="site-nav" aria-label="Portfolio">
+        <a href="#overview" aria-current="page">Overview</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="page portfolio-view" id="overview-view">
+        <header class="topbar">
+            <div class="eyebrows">
+                <div class="eyebrow">M.Sc. Candidate · Cybersecurity</div>
+                <div class="eyebrow">SAP Cloud Developer</div>
             </div>
+            <div class="meta">Curriculum Vitae</div>
         </header>
 
-        <main class="content-grid">
-            <section class="section-card about">
-                <h2>About Me</h2>
-                <p>Italian mother, German father, born in Malaysia and raised in Brazil. In my free time, I enjoy composing music on my synthesizer, playing piano, soccer, and Kung Fu. I also work on an independent mobile website project and enjoy exploring algorithmic complexity and convex optimization methods for hard problems.</p>
-            </section>
+        <section class="hero">
+            <div class="avatar">
+                <img src="foto_profilo.jpg" alt="Portrait of Maximilian Ley" />
+            </div>
+            <div class="hero-copy">
+                <h1>Maximilian Ley</h1>
+                <p class="lead_white">Cybersecurity student and software developer combining SAP, cloud, backend systems, and applied AI into practical digital solutions.</p>
+                <div class="contacts">
+                    <a class="pill_white" href="mailto:maximilianthomasley@gmail.com"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-email" /></svg>maximilianthomasley@gmail.com</a>
+                    <a class="pill_white" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer"><img class="contact-icon" src="github-invertocat-white.svg" alt="" />GitHub</a>
+                    <a class="pill_white" href="https://www.linkedin.com/in/maximilian-thomas-ley-b648a4174/" target="_blank" rel="noreferrer"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-linkedin" /></svg>LinkedIn</a>
+                    <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-location" /></svg>Saarbrücken, Germany</span>
+                    <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-mobile" /></svg>+49 174 8314351</span>
+                </div>
+            </div>
+        </section>
 
-            <section class="section-card">
-                <h2>Certifications</h2>
-                <ul class="mini-list">
-                    <li class="mini-item">
-                        <div class="edu-copy">
-                            <strong>SAP Certified - Backend Developer ABAP Cloud</strong>
-                            <span class="small-text">C_ABAPD</span>
+        <main class="layout">
+            <div class="stack">
+                <section class="panel">
+                    <h2>About</h2>
+                    <p class="plain-text">Italian mother, German father, born in Malaysia and raised in Brazil. In my free time, I enjoy composing music on my synthesizer, playing piano, soccer, and Kung Fu. I also work on an independent mobile website project and enjoy exploring algorithmic complexity and convex optimization methods for hard problems.</p>
+                </section>
+
+                <section class="panel" style="margin-top:18px;">
+                    <h2>Experience</h2>
+                    <div class="entry-list">
+                        <article class="entry">
+                            <div>
+                                <small>2025 – Present</small>
+                                <strong>SAP Developer and Consultant</strong>
+                                <p>dinext GmbH, Saarbrücken</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2023</small>
+                                <strong>Digitalizing the Forest</strong>
+                                <p>Forestry Office / Heilbronn University</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2023</small>
+                                <strong>Digitalization: Online City Portal</strong>
+                                <p>Heilbronn University / City of Heilbronn</p>
+                            </div>
+                            <div class="logo-box small-box">
+                                <img class="city-logo" src="https://upload.wikimedia.org/wikipedia/commons/3/31/Wappen_Heilbronn.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="City of Heilbronn coat of arms" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2021 – 2022</small>
+                                <strong>IT Administration</strong>
+                                <p>Illig Maschinenbau GmbH, Heilbronn</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2018 – 2019</small>
+                                <strong>ML Image Classification</strong>
+                                <p>Thrust Dev. Ltda., Rio de Janeiro</p>
+                            </div>
+                            <div class="logo-box">
+                                <img class="round-logo compact-logo" src="thrust_logo.jpeg" alt="Thrust Dev. logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2018 – 2019</small>
+                                <strong>Cybersecurity Services and Risk Assessment</strong>
+                                <p>modulo, Rio de Janeiro</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="modulo_logo.png" alt="modulo logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2013</small>
+                                <strong>Mobile App Development</strong>
+                                <p>wissenswerft GmbH, Hannover</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="wissenswerft_logo.svg" alt="wissenswerft logo" />
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <div class="stack">
+                <section class="panel">
+                    <h2>Education</h2>
+                    <div class="entry-list">
+                        <article class="entry">
+                            <div>
+                                <small>Ongoing</small>
+                                <strong>M.Sc. Cybersecurity</strong>
+                                <p>Saarland University</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="https://www.uni-saarland.de/typo3conf/ext/uni_saarland/Resources/Public/Images/logo_uni_saarland.svg" alt="Saarland University logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2024</small>
+                                <strong>B.Sc. Applied Computer Science</strong>
+                                <p>Heilbronn University</p>
+                            </div>
+                            <div class="logo-box">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2018</small>
+                                <strong>B.Sc. Games Engineering</strong>
+                                <p>TU München</p>
+                            </div>
+                            <div class="logo-box">
+                                <svg class="tum-logo" viewBox="0 0 73 38" role="img" aria-label="Technical University of Munich logo" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M28 0v31h8V0h37v38h-7V7h-8v31h-7V7h-8v31H21V7h-7v31H7V7H0V0h28z" fill="#0065bd"/>
+                                </svg>
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div>
+                                <small>2017</small>
+                                <strong>MINT Orientation Semester (STEM)</strong>
+                                <p>TU München</p>
+                            </div>
+                            <div class="logo-box">
+                                <svg class="tum-logo" viewBox="0 0 73 38" role="img" aria-label="Technical University of Munich logo" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M28 0v31h8V0h37v38h-7V7h-8v31h-7V7h-8v31H21V7h-7v31H7V7H0V0h28z" fill="#0065bd"/>
+                                </svg>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="panel" style="margin-top:18px;">
+                    <h2>Certifications</h2>
+                    <div class="entry">
+                        <div>
+                            <small>C_ABAPD</small>
+                            <strong>SAP Certified – Backend Developer ABAP Cloud</strong>
                         </div>
-                        <div class="entry-logo">
+                        <div class="logo-box">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg" alt="SAP logo" />
                         </div>
-                    </li>
+                    </div>
+                </section>
+                <section class="panel">
+                    <h2>DOWNLOAD SECTION</h2>
+                    <div class="contacts">
+                        <a class="pill_white cv-download" href="CV-Maximilian-Ley-1.pdf" target="_blank" rel="noopener" aria-label="Open CV Experience PDF in a new tab">
+                            <svg class="contact-icon" aria-hidden="true"><use href="#download-icon" /></svg>
+                            <span>CV Experience</span>
+                        </a>
+                        <a class="pill_white cv-download" href="Profil_SAP.pdf" target="_blank" rel="noopener" aria-label="Open CV Freelancer PDF in a new tab">
+                            <svg class="contact-icon" aria-hidden="true"><use href="#download-icon" /></svg>
+                            <span>CV Freelancer</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <div class="two-cols" style="margin-top:18px;">
+            <section class="panel">
+                <h2>Languages</h2>
+                <ul class="clean-list">
+                    <li><strong>German</strong><span>Native</span></li>
+                    <li><strong>Italian</strong><span>Native</span></li>
+                    <li><strong>English</strong><span>C1</span></li>
+                    <li><strong>Portuguese</strong><span>C1</span></li>
+                    <li><strong>Spanish</strong><span>B2</span></li>
                 </ul>
             </section>
 
-            <section class="section-card experience">
-                <h2>Experience</h2>
-                <div class="timeline">
-                    <article class="job">
-                        <div class="date">2025 – Present</div>
-                        <div class="details">
-                            <div class="entry-row">
-                                <div class="entry-copy">
-                                    <h3>SAP Consulting / dinext GmbH</h3>
-                                    <p>Saarbrücken</p>
-                                    <ul>
-                                        <li>Clean-core and RAP compliant ABAP development</li>
-                                        <li>SAP BTP configuration and side-by-side extensibility</li>
-                                        <li>SAP Identity Access Management configuration</li>
-                                        <li>On-stack extensibility in S/4HANA Public Cloud</li>
-                                        <li>Business Add-in (BAdI) implementation and Key-User Extension customization</li>
-                                        <li>Custom Fiori UI configuration and development</li>
-                                        <li>Initial onboarding of new employees</li>
-                                    </ul>
-                                </div>
-                                <div class="entry-logo">
-                                    <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="job">
-                        <div class="date">2023</div>
-                        <div class="details">
-                            <div class="entry-row">
-                                <div class="entry-copy">
-                                    <h3>Digitalizing the Forest</h3>
-                                    <p>Forestry Office / Heilbronn University</p>
-                                    <ul>
-                                        <li>Prototype for measuring plant height using light measurements</li>
-                                        <li>Research, planning and implementation of a data exchange infrastructure</li>
-                                        <li>Testing and evaluation of environmental sensor data</li>
-                                    </ul>
-                                </div>
-                                <div class="entry-logo">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="job">
-                        <div class="date">2023</div>
-                        <div class="details">
-                            <div class="entry-row">
-                                <div class="entry-copy">
-                                    <h3>Digitalization: Online City Portal</h3>
-                                    <p>Heilbronn University / City of Heilbronn</p>
-                                    <ul>
-                                        <li>Refactoring the backend of the city portal website</li>
-                                        <li>Improving digital processes for online forms and local administrative workflows</li>
-                                    </ul>
-                                </div>
-                                <div class="entry-logo small-logo">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Wappen_Heilbronn.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="City of Heilbronn coat of arms" />
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="job">
-                        <div class="date">2021 – 2022</div>
-                        <div class="details">
-                            <div class="entry-row">
-                                <div class="entry-copy">
-                                    <h3>IT Administration</h3>
-                                    <p>Illig Maschinenbau GmbH</p>
-                                    <ul>
-                                        <li>Maintenance of SAP and Windows Active Directory user policies</li>
-                                        <li>Intranet restructuring workshop and support</li>
-                                        <li>Material ordering via SAP R/3</li>
-                                        <li>Training and onboarding of new employees</li>
-                                        <li>IT hotline support</li>
-                                    </ul>
-                                </div>
-                                <div class="entry-logo">
-                                    <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="job">
-                        <div class="date">2018 – 2019</div>
-                        <div class="details">
-                            <div class="entry-row">
-                                <div class="entry-copy">
-                                    <h3>AI / Thrust Ltd.</h3>
-                                    <p>Rio de Janeiro</p>
-                                    <ul>
-                                        <li>Pattern recognition through neural network implementations</li>
-                                        <li>Web development work</li>
-                                    </ul>
-                                </div>
-                                <div class="entry-logo small-logo thrust-logo">
-                                    <img src="https://www.thrust.com.br/img/logos/thrust-white.png" alt="Thrust logo" />
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section-card">
-                <h2>Education</h2>
-                <ul class="edu-list">
-                    <li class="edu-item">
-                        <div class="edu-copy">
-                            <strong>M.Sc. Cybersecurity</strong>
-                            <span class="small-text">Saarland University · ongoing</span>
-                        </div>
-                        <div class="entry-logo">
-                            <img src="https://www.uni-saarland.de/typo3conf/ext/uni_saarland/Resources/Public/Images/logo_uni_saarland.svg" alt="Saarland University logo" />
-                        </div>
-                    </li>
-                    <li class="edu-item">
-                        <div class="edu-copy">
-                            <strong>B.Sc. Applied Computer Science</strong>
-                            <span class="small-text">Heilbronn University of Applied Sciences · 2024</span>
-                        </div>
-                        <div class="entry-logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
-                        </div>
-                    </li>
-                    <li class="edu-item">
-                        <div class="edu-copy">
-                            <strong>B.Sc. Games Engineering</strong>
-                            <span class="small-text">Technical University Munich · 2018</span>
-                        </div>
-                        <div class="entry-logo">
-                            <img src="https://www.tum.de/typo3conf/ext/in2template/Resources/Public/Images/Backend/tum-logo.svg" alt="Technical University of Munich logo" />
-                        </div>
-                    </li>
-                    <li class="edu-item">
-                        <div class="edu-copy">
-                            <strong>STEM Orientation Semester</strong>
-                            <span class="small-text">Technical University Munich · 2016</span>
-                        </div>
-                        <div class="entry-logo">
-                            <img src="https://www.tum.de/typo3conf/ext/in2template/Resources/Public/Images/Backend/tum-logo.svg" alt="Technical University of Munich logo" />
-                        </div>
-                    </li>
-                    <li class="edu-item">
-                        <div class="edu-copy">
-                            <strong>High School</strong>
-                            <span class="small-text">German School Rio de Janeiro · 2007–2015</span>
-                        </div>
-                        <div class="entry-logo">
-                            <img src="https://www.eacorcovado.com.br/themes/eacorcovado/img/logo.png" alt="German School Rio logo" />
-                        </div>
-                    </li>
-                </ul>
-            </section>
-
-            <section class="section-card">
+            <section class="panel">
                 <h2>Skills</h2>
-                <div class="skill-grid">
+                <div class="skills">
                     <span class="chip">ABAP Cloud</span>
                     <span class="chip">SAP BTP</span>
                     <span class="chip">S/4HANA</span>
                     <span class="chip">Python</span>
                     <span class="chip">C/C++</span>
+                    <span class="chip">Rust</span>
                     <span class="chip">Java</span>
                     <span class="chip">Kotlin</span>
                     <span class="chip">Swift</span>
@@ -673,33 +929,267 @@
                     <span class="chip">HTML</span>
                     <span class="chip">CSS</span>
                     <span class="chip">JavaScript</span>
-                    <span class="chip">PostgreSQL</span>
-                    <span class="chip">Open SQL</span>
-                    <span class="chip">CDS</span>
+                    <span class="chip">AI</span>
+                    <span class="chip">Cybersecurity</span>
+                    <span class="chip">LLM-Agents</span>
+                    <span class="chip">LangChain</span>
                     <span class="chip">PyTorch</span>
-                    <span class="chip">AutoKeras</span>
-                    <span class="chip">GANs</span>
-                    <span class="chip">Distributed Systems</span>
-                    <span class="chip">DNS / IPv4 / IPv6</span>
-                    <span class="chip">Firewalls</span>
                 </div>
             </section>
-
-            <section class="section-card">
-                <h2>Languages</h2>
-                <ul class="mini-list">
-                    <li class="mini-item"><strong>German</strong> Native proficiency</li>
-                    <li class="mini-item"><strong>Italian</strong> Native proficiency</li>
-                    <li class="mini-item"><strong>English</strong> C1</li>
-                    <li class="mini-item"><strong>Portuguese</strong> C1</li>
-                    <li class="mini-item"><strong>Spanish</strong> B2</li>
-                    <li class="mini-item"><strong>Mandarin</strong> HSK1</li>
-                    <li class="mini-item"><strong>Korean</strong> A1</li>
-                    <li class="mini-item"><strong>Japanese</strong> JLPT N5</li>
-                </ul>
-            </section>
-        </main>
+        </div>
     </div>
+
+    <main id="projects-view" hidden>
+        <div class="projects-hero">
+            <h1 class="projects-title">Projects &amp; Work</h1>
+        </div>
+        <div class="page">
+            <article class="project-card">
+                <h2>S/4HANA Public Cloud Custom Accruals Integration</h2>
+                <p class="project-period">September 2025 – November 2026</p>
+                <p class="plain-text">Development of a custom on-stack integration managing company accruals and deferrals on the S/4HANA Public Cloud System. Custom application meant to be offered to small to mid-sized enterprises across the DACH region employing SAP's Public Cloud system. Development enhances system functionality for managing and creating invoices, which the S/4 Tenant does not natively support.</p>
+                <ul class="plain-text project-tasks">
+                    <!--li>Designed a responsive event listing and detail page.</li>
+                    <li>Built filters for event dates and categories.</li>
+                    <li>Tested navigation on phones and tablets.</li-->
+                </ul>
+                <div class="skills">
+                    <span class="chip">S/4</span>
+                    <span class="chip">ABAP Cloud</span>
+                    <span class="chip">RAP</span>
+                    <span class="chip">ABAP SQL</span>
+                    <span class="chip">IAM</span>
+                    <span class="chip">SOAP</span>
+                    <span class="chip">BaDI Enhancements</span>
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <span class="project-source-nda">NDA</span></footer>
+            </article>
+            <article class="project-card">
+                <h2>Introduction of the S/4HANA Public Cloud</h2>
+                <p class="project-period">August 2025 – March 2026</p>
+                <p class="plain-text">Full rollout of the S/4HANA Public Cloud System for a client in Germany. Project phases include onboarding, configuration and migration of master data to the cloud tenant. Part of the technical consulting team responsible for advising on on-stack and side-by-side integrations.</p>
+                <ul class="plain-text project-tasks">
+                    <li>inventory and infrastructure discovery of the client's IT landscape</li>
+                    <li>cost estimation for integrating services on the BTP, including payment processors and 3PL supplier APIs</li> <!-- 3PL Anbindung -->
+                    <li>analysis of Amazon's payment system integration in BTP's Integration Suite</li>
+                    <li>supply data synchronisation between payment processor, S/4 Cloud Tenant and 3PL supplier</li> <!-- Zahlungsabwicklung -->
+                    <li>master data transfer latency and data representation betweeen thrid-party and S/4 Public Cloud System</li> <!-- Übernahme von Stammdaten,... mass data runs (hier nicht ganz, aber allg. wichtig) -->
+                    <li>requirement elicitation and scope item definition</li> <!-- Anforderungserfassung -->
+                </ul>
+                <div class="skills">
+                    <span class="chip">BTP</span>
+                    <span class="chip">S/4</span>
+                    <span class="chip">RAP</span>
+                    <span class="chip">Integration Suite</span>
+                    <span class="chip">Event Mesh</span>
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <span class="project-source-nda">NDA</span></footer>
+            </article>
+            <article class="project-card">
+                <h2>ABAP-Cloud Developer (in-house)</h2>
+                <p class="project-period">January 2025 – November 2026</p>
+                <p class="plain-text">Discovery of the S/4 HANA Public Cloud and BTP stack. First internal developer for pioneering cloud technology of SAP's ERP Systems. Assistance in migrating company's knowledge base from SAP ByD to the S/4HANA Public Cloud.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                    <!--span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <span class="project-source-nda">NDA</span></footer>
+            </article>
+            <article class="project-card">
+                <h2>Procedural CTF-Generator for LLM-Agents</h2>
+                <p class="project-period">August 2026 – September 2026</p>
+                <p class="plain-text">Framework for generating random cryptographic capture-the-flag challenges based around a reversible nonce-generation mechanism. Produced challenges are meant to stress test LLM's cryptographic capabilities. The LLM's ability to solve the challenge instance is tested by expressing the recursive nonce generator as an arbitrary collection of permutated and nested quadratic, linear and constant terms. Implementation includes verification of a generated challenge for guaranteed solvability. Extension to similar and more involved cryptographic vulnerabilities possible.</p>
+                <ul class="plain-text project-tasks">
+                    <!--li>Designed a responsive event listing and detail page.</li>
+                    <li>Built filters for event dates and categories.</li>
+                    <li>Tested navigation on phones and tablets.</li-->
+                </ul>
+                <div class="skills">
+                    <!--span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/crypto_ctf_procedural" target="_blank" rel="noopener">Crypto CTF</a></footer>
+            </article>
+            <article class="project-card">
+                <h2>Zero-Knowledge IVC-based Proof System for AI-Agents</h2>
+                <p class="project-period">April 2026 – June 2026</p>
+                <p class="plain-text">Build and deployment of a zero-knowledge prooving pipeline tailored to LLM-agents in productive environments. The implementation is a Proof-of-Concept showcasing how proof circuits can be generated and accumulated via a folding mechanism, thus enabling incremental verification (IVC). Use of this mechanism is in general intended for systems continuously producing outputs which need to be verified for correctness and compliance against an established policy. In particular, the PoC can be applied to agentic environments in which the continuously increasing trace of the agent's activity (e.g. tool calls) can be efficiently translated into a proof circuit via IVC. Practical use-cases may include automated trading agents, banking services integrating agents and automated processes in healthcare (e.g. management of medical data).</p>
+                <ul class="plain-text project-tasks">
+                    <!--li>Designed a responsive event listing and detail page.</li>
+                    <li>Built filters for event dates and categories.</li>
+                    <li>Tested navigation on phones and tablets.</li-->
+                </ul>
+                <div class="skills">
+                    <!--span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/agents_zktrace" target="_blank" rel="noopener">ZK-Trace</a></footer>
+            </article>
+            <article class="project-card">
+                <h2>MemberPass: Mobile Membership Platform</h2>
+                <p class="project-period">June 2022 – September 2024</p>
+                <p class="plain-text">Business concept, design and development of a mobile web-application. The service provides the creation of digital passes, which users can utlize to organize an event, form a group (e.g. culb or society) or any other use case which requires identification of members. The platform additionally offers the capability to define dependencies between passes, enabling membership hierarchies, and the possibility for flexible membership negotiation between a passe's purchaser and owner.</p>
+                <ul class="plain-text project-tasks">
+                    <!--li>Designed a responsive event listing and detail page.</li>
+                    <li>Built filters for event dates and categories.</li>
+                    <li>Tested navigation on phones and tablets.</li-->
+                </ul>
+                <div class="skills">
+                    <!--span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>Digitalizing the Forest: Trackingsystem for Automatic Crop Monitoring</h2>
+                <p class="project-period">September 2023 – December 2023</p>
+                <p class="plain-text">Implementation of a prototype for measuring plant height based on light measurements with I&sup2;C photodiodes. The setup allows for an automated monitoring process of a dedicated forest area, improving task efficiency of forestry workers by enabling continuous remote rather than on-site monitoring. Research, planning and implementation of an infrastructure for data exchange within a forest via the LoRa-WAN protocol. Interpretation of sensor data, communication pipeline from antenna to lightweight REST API to end-device of the forestry worker. Testing and evaluation of sensor data.</p>
+                <ul class="plain-text project-tasks">
+                    <!--li>Designed a responsive event listing and detail page.</li>
+                    <li>Built filters for event dates and categories.</li>
+                    <li>Tested navigation on phones and tablets.</li-->
+                </ul> <!-- DAS REPOOO!!!!   https://github.com/informatik-heilbronn/transparenz-cockpit  -->
+                <div class="skills">
+                    <!--span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>Project Developer - Digitalization: Online City Portal</h2>
+                <p class="project-period">April 2022 – July 2022</p>
+                <p class="plain-text">Refactoring of a codebase for the automatic generation and submission process of forms for the city's public administration. Project is aimed at improving the efficiency of administrative processes of Heilbronn's online city portal. Cooperation between Heilbronn Unervisity and the city of Heilbronn in the context of the city's digitalization initiative.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills"><!--
+                    <span class="chip">HTML</span>
+                    <span class="chip">CSS</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Responsive Design</span>
+                    <span class="chip">Mobile Testing</span-->
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>IT-Administration</h2>
+                <p class="project-period">September 2021 – March 2022</p>
+                <p class="plain-text">Fulltime intern at the IT department of one of the world's leading thermoforming and packaging solutions providers. Department consisting of 8 administrators responsible for running and maintaining the entire company's IT-infrastructure, ensuring stability of business operations comprising company HQ and subsidiaries across Europe for 800+ employees.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>SAP Workzone Integration</h2>
+                <p class="project-period">September 2021 – March 2022</p>
+                <p class="plain-text">Assisted in the integration and onboarding process of the SAP Workzone as the chosen solution for modernizing the company's intranet system. Processes to be improved included the online portal for ordering office material and the design of the company's news feed. Project spearheaded the company's initiative for digital modernization. Joint venture with Vantaio SAP Systems and Consulting firm.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>Anti-Phishing Campaign Rollout</h2>
+                <p class="project-period">September 2021 – March 2022</p>
+                <p class="plain-text">Assisted in the company-wide rollout of an anti-phishing e-mail campaign in the context of implementing security policies and cybersecurity awareness training for employees. Security training modules provided by SoSafe GmbH.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>ML Developer</h2>
+                <p class="project-period">November 2018 – July 2019</p>
+                <p class="plain-text">Development of ML-based monitoring software. Implementation and training of a custom convolutional network for numerical digit classification. Solution is built for local brazilian law enforcement departments to aid in automating number plate recognition from live camera feeds of traffic. Training performed with the MNIST dataset of handwritten digits, model built with AutoKeras.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                </div>
+                <footer class="project-source"><strong>Source:</strong> Project link to be added.</footer>
+            </article>
+            <article class="project-card">
+                <h2>Internship: Web-Development & Marketing</h2>
+                <p class="project-period">November 2013</p>
+                <p class="plain-text">Short internship at an Hannover-based software development firm. Participation in the development and marketing of the company's solution <strong>page2flip</strong> for cross-device digital publishing and catalogue creation.</p>
+                <ul class="plain-text project-tasks">
+                </ul>
+                <div class="skills">
+                </div>
+                <footer class="project-source"><strong>Source:</strong> <a href="https://wissenswerft.de/produkte/#page2flip" target="_blank" rel="noopener">page2flip</a></footer>
+            </article>
+        </div>
+    </main>
+
+    <main id="contact-view" hidden>
+        <div class="projects-hero contact-hero">
+            <div class="contact-content">
+                <h1 class="view-heading">Contact</h1>
+                <div class="panel">
+                    <div class="contacts">
+                        <a class="pill_white" href="mailto:maximilianthomasley@gmail.com"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-email" /></svg>maximilianthomasley@gmail.com</a>
+                        <a class="pill_white" href="tel:+491748314351"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-mobile" /></svg>+49 174 8314351</a>
+                        <a class="pill_white" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer"><img class="contact-icon" src="github-invertocat-white.svg" alt="" />GitHub</a>
+                        <a class="pill_white" href="https://www.linkedin.com/in/maximilian-thomas-ley-b648a4174/" target="_blank" rel="noreferrer"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-linkedin" /></svg>LinkedIn</a>
+                        <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-location" /></svg>Saarbrücken, Germany</span>
+                    </div>
+                </div>
+                <section class="panel" style="margin-top:18px;">
+                    <h2>Working arrangements</h2>
+                    <p class="plain-text">
+                        <strong>Hourly rate:</strong> 60€<br />
+                        <strong>Availability:</strong> immediately<br />
+                        <strong>Location:</strong> Saarbrücken and surrounding area, remote, on-site by arrangement
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const navLinks = Array.from(document.querySelectorAll('.site-nav a'));
+
+        function showCurrentView() {
+            const currentLink = navLinks.find(link => link.hash === window.location.hash) ?? navLinks[0];
+
+            for (const link of navLinks) {
+                const view = document.getElementById(`${link.hash.slice(1)}-view`);
+                view.hidden = link !== currentLink;
+
+                if (link === currentLink) {
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            }
+        }
+
+        window.addEventListener('hashchange', () => {
+            showCurrentView();
+            if (window.location.hash === '#projects') {
+                window.scrollTo(0, 0);
+            }
+        });
+        showCurrentView();
+    </script>
 </body>
 </html>
-
