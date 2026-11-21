@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:image" itemprop="image" content="https://github.com/maximilianley/maximilianley.github.io/blob/main/profilo_sfondo_edit.jpg" />
+    <meta property="og:image" itemprop="image" content="https://maximilianley.github.io/profilo_sfondo_edit.jpg" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Maximilian Ley" />
+    <meta property="og:title" content="Maximilian Ley />
     <meta property="og:description" content="Curriculum & Portfolio of Maximilian Ley" />
     <meta property="og:url" content="https://maximilianley.github.io" />
     <meta property="og:site_name" content="Maximilian Ley" />
@@ -395,6 +395,47 @@
             stroke-linejoin: round;
         }
 
+        .working-arrangements {
+            margin-top: 18px;
+        }
+
+        .arrangement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .arrangement-item {
+            min-height: 112px;
+            padding: 16px;
+            border: 0px solid var(--border);
+            background: rgba(255,255,255,0);
+        }
+
+        .arrangement-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--soft);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .arrangement-value {
+            display: block;
+            color: var(--accent);
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .arrangement-value.small {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 400;
+        }
+
         .cv-download {
             flex-direction: column;
             gap: 4px;
@@ -645,6 +686,14 @@
             .layout,
             .two-cols {
                 grid-template-columns: 1fr;
+            }
+
+            .arrangement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arrangement-item {
+                min-height: 0;
             }
 
             .contact-hero {
@@ -1205,13 +1254,22 @@
                         <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-location" /></svg>Saarbrücken, Germany</span>
                     </div>
                 </div>
-                <section class="panel" style="margin-top:18px;">
+                <section class="panel working-arrangements">
                     <h2>Working arrangements</h2>
-                    <p class="plain-text">
-                        <strong>Hourly rate:</strong> 60€<br />
-                        <strong>Availability:</strong> immediately<br />
-                        <strong>Location:</strong> Saarbrücken and surrounding area, remote, on-site by arrangement
-                    </p>
+                    <div class="arrangement-grid">
+                        <div class="arrangement-item">
+                            <span class="arrangement-label">Hourly rate</span>
+                            <span class="arrangement-value">60€ / hour</span>
+                        </div>
+                        <div class="arrangement-item">
+                            <span class="arrangement-label">Availability</span>
+                            <span class="arrangement-value">Immediately</span>
+                        </div>
+                        <div class="arrangement-item">
+                            <span class="arrangement-label">Location</span>
+                            <span class="arrangement-value small">Saarbrücken and surrounding area, remote, or on-site by arrangement</span>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
