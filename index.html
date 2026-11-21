@@ -490,6 +490,7 @@
         }
 
         .project-card {
+            position: relative;
             padding: clamp(18px, 4vw, 36px);
             border: 1px solid var(--border);
             background: var(--panel);
@@ -519,6 +520,87 @@
 
         .project-card .skills {
             margin-top: 16px;
+        }
+
+        .project-card .logo-box {
+            position: absolute;
+            bottom: clamp(6px, 1.5vw, 12px);
+            right: clamp(6px, 1.5vw, 12px);
+            width: clamp(48px, 10vw, 72px);
+            height: clamp(48px, 10vw, 72px);
+            display: grid;
+            place-items: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .logo-box {
+            opacity: 1;
+        }
+
+        .project-card .logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: brightness(1.12);
+        }
+
+        .project-card .logo-box img.round-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .project-card .logo-box img.compact-logo {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .project-card .logo-box.dual-logos {
+            display: flex;
+            align-items: center;
+            gap: 21px;
+            padding: 0px 2px;
+            width: clamp(68px, 13vw, 132px);
+            height: clamp(68px, 13vw, 82px);
+            right: 50px;
+        }
+
+        .project-card .logo-box.dual-logos img:first-child {
+            width: auto;
+            height: 100%;
+            max-width: 55%;
+            margin-right: 1px;
+        }
+
+        .project-card .logo-box.dual-logos img:last-child {
+            width: auto;
+            height: 60%;
+            max-width: 35%;
+            margin-left: 1px;
+            position: relative;
+            padding-left: 3px;
+        }
+
+        .project-card .logo-box.dual-logos img:last-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 70%;
+            background: var(--border);
+        }
+
+        .project-card:hover .project-logo {
+            opacity: 1;
         }
 
         .project-source {
@@ -1008,6 +1090,9 @@
         <div class="page">
             <article class="project-card">
                 <h2>S/4HANA Public Cloud Custom Accruals Integration</h2>
+                <div class="logo-box">
+                    <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
+                </div>
                 <p class="project-period">September 2025 – November 2026</p>
                 <p class="plain-text">Development of a custom on-stack integration managing company accruals and deferrals on the S/4HANA Public Cloud System. Custom application meant to be offered to small to mid-sized enterprises across the DACH region employing SAP's Public Cloud system. Development enhances system functionality for managing and creating invoices at position-level granularity, which the native S/4 System does not sufficiently support.</p>
                 <ul class="plain-text project-tasks">
@@ -1035,6 +1120,9 @@
             </article>
             <article class="project-card">
                 <h2>Introduction of the S/4HANA Public Cloud</h2>
+                <div class="logo-box">
+                    <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
+                </div>
                 <p class="project-period">August 2025 – March 2026</p>
                 <p class="plain-text">Full rollout of the S/4HANA Public Cloud System for a client in Germany. Project phases include onboarding, configuration and migration of master data to the cloud tenant. Part of the technical consulting team responsible for advising on on-stack and side-by-side integrations.</p>
                 <ul class="plain-text project-tasks">
@@ -1060,6 +1148,9 @@
             </article>
             <article class="project-card">
                 <h2>ABAP-Cloud Developer (in-house)</h2>
+                <div class="logo-box">
+                    <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
+                </div>
                 <p class="project-period">January 2025 – November 2026</p>
                 <p class="plain-text">Discovery of the S/4 HANA Public Cloud and BTP stack. First internal developer for pioneering cloud technology of SAP's ERP Systems. Assistance in migrating company's knowledge base from SAP ByD to the S/4HANA Public Cloud.</p>
                 <ul class="plain-text project-tasks">
@@ -1159,6 +1250,10 @@
             </article>
             <article class="project-card">
                 <h2>Digitalizing the Forest: Trackingsystem for Automatic Crop Monitoring</h2>
+                <div class="logo-box dual-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Wappen_Heilbronn.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="City of Heilbronn coat of arms" />
+                </div>
                 <p class="project-period">September 2023 – December 2023</p>
                 <p class="plain-text">Implementation of a prototype for measuring plant height based on light measurements with I&sup2;C photodiodes. The setup allows for an automated monitoring process of a dedicated forest area, improving task efficiency of forestry workers by enabling continuous remote rather than on-site monitoring. Research, planning and implementation of an infrastructure for data exchange within a forest via the LoRa-WAN protocol. Interpretation of sensor data, communication pipeline from antenna to lightweight REST API to end-device of the forestry worker. Testing and evaluation of sensor data.</p>
                 <ul class="plain-text project-tasks">
@@ -1184,6 +1279,10 @@
             </article>
             <article class="project-card">
                 <h2>Project Developer - Digitalization: Online City Portal</h2>
+                <div class="logo-box dual-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/HochschuleHeilbronn-Logo.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="Heilbronn University logo" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Wappen_Heilbronn.svg?utm_source=de.wikipedia.org&utm_campaign=index&utm_content=original" alt="City of Heilbronn coat of arms" />
+                </div>
                 <p class="project-period">April 2022 – July 2022</p>
                 <p class="plain-text">Refactoring of a codebase for the automatic generation and submission process of forms for the city's public administration. Project is aimed at improving the efficiency of administrative processes of Heilbronn's online city portal. Cooperation between Heilbronn Unervisity and the city of Heilbronn in the context of the city's digitalization initiative.</p>
                 <ul class="plain-text project-tasks">
@@ -1202,6 +1301,9 @@
             </article>
             <article class="project-card">
                 <h2>IT-Administration</h2>
+                <div class="logo-box">
+                    <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
+                </div>
                 <p class="project-period">September 2021 – March 2022</p>
                 <p class="plain-text">Fulltime intern at the IT department of one of the world's leading thermoforming and packaging solutions providers. Department consisting of 8 administrators responsible for running and maintaining the entire company's IT-infrastructure, ensuring stability of business operations comprising company HQ and subsidiaries across Europe for 800+ employees.</p>
                 <ul class="plain-text project-tasks">
@@ -1225,6 +1327,9 @@
             </article>
             <article class="project-card">
                 <h2>SAP Workzone Integration</h2>
+                <div class="logo-box">
+                    <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
+                </div>
                 <p class="project-period">September 2021 – March 2022</p>
                 <p class="plain-text">Assisted in the integration and onboarding process of the SAP Workzone as the chosen solution for modernizing the company's intranet system. Processes to be improved included the online portal for ordering office material and the design of the company's news feed. Project spearheaded the company's initiative for digital modernization. Joint venture with Vantaio SAP Systems and Consulting firm.</p>
                 <ul class="plain-text project-tasks">
@@ -1238,6 +1343,9 @@
             </article>
             <article class="project-card">
                 <h2>Anti-Phishing Campaign Rollout</h2>
+                <div class="logo-box">
+                    <img src="https://www.illig.de/Logo/Brand%20-%20CI/136/image-thumb__136__draftLogo/ILLIG_brand_logo_white.png" alt="Illig Maschinenbau logo" />
+                </div>
                 <p class="project-period">September 2021 – March 2022</p>
                 <p class="plain-text">Assisted in the company-wide rollout of an anti-phishing e-mail campaign in the context of implementing security policies and cybersecurity awareness training for employees. Security training modules provided by SoSafe GmbH.</p>
                 <ul class="plain-text project-tasks">
@@ -1251,6 +1359,9 @@
             </article>
             <article class="project-card">
                 <h2>ML Developer</h2>
+                <div class="logo-box">
+                    <img class="round-logo compact-logo" src="thrust_logo.jpeg" alt="Thrust Dev. logo" />
+                </div>
                 <p class="project-period">November 2018 – July 2019</p>
                 <p class="plain-text">Development of ML-based monitoring software. Implementation and training of a custom convolutional network for numerical digit classification. Solution is built for local brazilian law enforcement departments to aid in automating number plate recognition from live camera feeds of street traffic. Training performed with the MNIST dataset of handwritten digits. Model built with AutoKeras.</p>
                 <ul class="plain-text project-tasks">
@@ -1264,6 +1375,9 @@
             </article>
             <article class="project-card">
                 <h2>Internship: Web-Development & Marketing</h2>
+                <div class="logo-box">
+                    <img src="wissenswerft_logo.svg" alt="wissenswerft logo" />
+                </div>
                 <p class="project-period">November 2013</p>
                 <p class="plain-text">Short internship at an Hannover-based software development firm. Participation in the development and marketing of the company's solution <strong>page2flip</strong> for cross-device digital publishing and catalogue creation.</p>
                 <ul class="plain-text project-tasks">
