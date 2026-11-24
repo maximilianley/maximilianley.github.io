@@ -112,6 +112,38 @@
             text-decoration: none;
         }
 
+        a[target="_blank"] {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        a[target="_blank"]::after {
+            content: "";
+            display: inline-block;
+            width: 1.1em;
+            height: 1.1em;
+            margin-left: -3px;
+            background-image: url('arrow-up-right-svgrepo-com.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            vertical-align: -0.15em;
+            filter: invert(1);
+            /*filter: brightness(0) invert(1);*/
+        }
+
+        a[target="_blank"]:hover {
+            text-decoration: underline;
+        }
+
+        a[target="_blank"]:hover::after {
+            opacity: 1;
+        }
+
         .page {
             position: relative;
             z-index: 1;
@@ -346,6 +378,38 @@
             margin-top: 8px;
         }
 
+        .contact-groups {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .contact-group {
+            min-width: 0;
+            padding: 16px;
+            border: 0;
+            background: transparent;
+        }
+
+        .contact-group h2 {
+            margin: 0 0 12px;
+            color: var(--accent);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .contact-group .contacts {
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-top: 0;
+        }
+
+        .contact-group .pill_white {
+            min-width: 0;
+        }
+
         .pill {
             display: inline-flex;
             align-items: center;
@@ -382,6 +446,12 @@
             transform: translateY(-1px);
         }
 
+        #contact-view .pill_white,
+        #contact-view .pill_white:hover {
+            border: 0;
+            background: transparent;
+        }
+
         .contact-icon {
             flex: 0 0 auto;
             width: 1.1em;
@@ -412,6 +482,67 @@
             background: rgba(255,255,255,0);
         }
 
+        .de-version-banner {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            z-index: 20;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            color: var(--accent);
+            background: rgba(10, 13, 18, 0.92);
+            border: 0;
+            font-size: 0.78rem;
+            white-space: nowrap;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .de-version-banner.is-closing {
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+
+        .de-version-flag {
+            width: 22px;
+            height: 14px;
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .de-version-flag span:nth-child(1) { background: #000; }
+        .de-version-flag span:nth-child(2) { background: #dd0000; }
+        .de-version-flag span:nth-child(3) { background: #ffce00; }
+
+        .de-version-close {
+            width: 24px;
+            height: 24px;
+            margin-left: 2px;
+            padding: 0;
+            display: inline-grid;
+            place-items: center;
+            color: var(--accent);
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .de-version-close:hover {
+            color: #fff;
+        }
+
+        .de-version-banner[hidden] {
+            display: none;
+        }
+
         .arrangement-label {
             display: block;
             margin-bottom: 8px;
@@ -440,6 +571,10 @@
             flex-direction: column;
             gap: 4px;
             padding: 8px 12px;
+        }
+
+        .cv-download[target="_blank"]::after {
+            display: none;
         }
 
         .cv-download .contact-icon {
@@ -586,6 +721,17 @@
             margin-left: 1px;
             position: relative;
             padding-left: 3px;
+        }
+
+        .project-card .logo-box.ctf-logo {
+            bottom: clamp(8px, -1vw, 2px) !important;
+        }
+
+        .project-card .logo-box.memberpass-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            right: 30px;
+            bottom: 20px;
         }
 
         .project-card .logo-box.dual-logos img:last-child::before {
@@ -775,7 +921,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .arrangement-grid {
+            .arrangement-grid,
+            .contact-groups {
                 grid-template-columns: 1fr;
             }
 
@@ -877,7 +1024,7 @@
             <div class="stack">
                 <section class="panel">
                     <h2>About</h2>
-                    <p class="plain-text">Italian mother, German father, born in Malaysia and raised in Brazil. In my free time, I enjoy composing music on my synthesizer, Kung Fu, playing the piano, tennis and soccer. I also work on an independent mobile website project and enjoy exploring algorithmic complexity and convex optimization methods for hard problems.</p>
+                    <p class="plain-text">Italian mother, German father, born in Malaysia and raised in Brazil. In my free time, I enjoy composing music on my synthesizer, playing piano, soccer, and Kung Fu. I also work on an independent mobile website project and enjoy exploring algorithmic complexity and convex optimization methods for hard problems.</p>
                 </section>
 
                 <section class="panel" style="margin-top:18px;">
@@ -992,7 +1139,7 @@
                         <article class="entry">
                             <div>
                                 <small>2018</small>
-                                <strong>B.Sc. Games Engineering</strong>
+                                <strong>Informatik: Games Engineering</strong>
                                 <p>TU München</p>
                             </div>
                             <div class="logo-box">
@@ -1038,7 +1185,7 @@
                         </a>
                         <a class="pill_white cv-download" href="Profil_SAP.pdf" target="_blank" rel="noopener" aria-label="Open CV Freelancer PDF in a new tab">
                             <svg class="contact-icon" aria-hidden="true"><use href="#download-icon" /></svg>
-                            <span>CV Freelancer</span>
+                            <span>CV Freelancer (DEU)</span>
                         </a>
                     </div>
                 </section>
@@ -1054,12 +1201,16 @@
                     <li><strong>English</strong><span>C1</span></li>
                     <li><strong>Portuguese</strong><span>C1</span></li>
                     <li><strong>Spanish</strong><span>B2</span></li>
+                    <li><strong>Mandarin/Japanese/Korean</strong><span>A1</span></li>
                 </ul>
             </section>
 
             <section class="panel">
                 <h2>Skills</h2>
                 <div class="skills">
+                    <span class="chip">Cybersecurity</span>
+                    <span class="chip">AI</span>
+                    <span class="chip">LLM-Agents</span>
                     <span class="chip">ABAP Cloud</span>
                     <span class="chip">SAP BTP</span>
                     <span class="chip">S/4HANA</span>
@@ -1073,9 +1224,6 @@
                     <span class="chip">HTML</span>
                     <span class="chip">CSS</span>
                     <span class="chip">JavaScript</span>
-                    <span class="chip">AI</span>
-                    <span class="chip">Cybersecurity</span>
-                    <span class="chip">LLM-Agents</span>
                     <span class="chip">LangChain</span>
                     <span class="chip">PyTorch</span>
                 </div>
@@ -1115,11 +1263,11 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> <span class="project-source-nda">NDA</span></span>
-                    <span class="project-affiliation"><strong>Organization:</strong> dinext GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://dinext-group.com/" target="_blank" rel="noopener">dinext GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
-                <h2>Introduction of the S/4HANA Public Cloud</h2>
+                <h2>Introduction of a SAP ERP Cloud System for a new Client</h2>
                 <div class="logo-box">
                     <img src="https://dinext-group.com/wp-content/uploads/2023/10/dinext-Logo-RGB-f-weiss-1024x296.png" alt="dinext logo" />
                 </div>
@@ -1143,7 +1291,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> <span class="project-source-nda">NDA</span></span>
-                    <span class="project-affiliation"><strong>Organization:</strong> dinext GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://dinext-group.com/" target="_blank" rel="noopener">dinext GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1174,11 +1322,15 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> <span class="project-source-nda">NDA</span></span>
-                    <span class="project-affiliation"><strong>Organization:</strong> dinext GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://dinext-group.com/" target="_blank" rel="noopener">dinext GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
                 <h2>Procedural CTF-Generator for LLM-Agents</h2>
+                <div class="logo-box dual-logos ctf-logo">
+                    <img src="https://www.uni-saarland.de/typo3conf/ext/uni_saarland/Resources/Public/Images/logo_uni_saarland.svg" alt="Saarland University logo" />
+                    <img src="cispa_logo.svg" alt="CISPA logo" />
+                </div>
                 <p class="project-period">August 2026 – September 2026</p>
                 <p class="plain-text">Framework for generating random cryptographic capture-the-flag challenges based around a reversible nonce-generation mechanism. Produced challenges are meant to stress test LLM's cryptographic capabilities. The LLM's ability to solve the challenge instance is tested by expressing the recursive nonce generator as an arbitrary collection of permutated and nested quadratic, linear and constant terms. Implementation includes verification of a generated challenge for guaranteed solvability. Extension to similar and more involved cryptographic vulnerabilities possible.</p>
                 <ul class="plain-text project-tasks">
@@ -1196,10 +1348,17 @@
                     <span class="chip">Offensive Security</span>
                     <span class="chip">LangChain</span>
                 </div>
-                <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/crypto_ctf_procedural" target="_blank" rel="noopener">Crypto CTF</a></footer>
+                <footer class="project-source">
+                    <span><strong>Source:</strong> <a href="https://github.com/maximilianley/crypto_ctf_procedural" target="_blank" rel="noopener">Crypto CTF</a></span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.uni-saarland.de/studium/angebot/master/cybersecurity.html" target="_blank" rel="noopener">Universität des Saarlandes</a>, <a href="https://cispa.de/en" target="_blank" rel="noopener">CISPA Helmholtz Center for Information Security</a></span>
+                </footer>
             </article>
             <article class="project-card">
                 <h2>Zero-Knowledge IVC-based Proof System for AI-Agents</h2>
+                <div class="logo-box dual-logos ctf-logo">
+                    <img src="https://www.uni-saarland.de/typo3conf/ext/uni_saarland/Resources/Public/Images/logo_uni_saarland.svg" alt="Saarland University logo" />
+                    <img src="cispa_logo.svg" alt="CISPA logo" />
+                </div>
                 <p class="project-period">April 2026 – June 2026</p>
                 <p class="plain-text">Build and deployment of a zero-knowledge prooving pipeline tailored to LLM-agents in productive environments. The implementation is a Proof-of-Concept showcasing how proof circuits can be generated and accumulated via a folding mechanism, thus enabling incremental verification (IVC). Use of this mechanism is in general intended for systems continuously producing outputs which need to be verified for correctness and compliance against an established policy. In particular, the PoC can be applied to agentic environments in which the continuously increasing trace of the agent's activity (e.g. tool calls) can be efficiently translated into a proof circuit via IVC. Practical use-cases may include automated trading agents, banking services integrating agents and automated processes in healthcare (e.g. management of medical data).</p>
                 <ul class="plain-text project-tasks">
@@ -1216,10 +1375,16 @@
                     <span class="chip">LangChain</span>
                     <span class="chip">Rust</span>
                 </div>
-                <footer class="project-source"><strong>Source:</strong> <a href="https://github.com/maximilianley/agents_zktrace" target="_blank" rel="noopener">ZK-Trace</a></footer>
+                <footer class="project-source">
+                    <span><strong>Source:</strong> <a href="https://github.com/maximilianley/agents_zktrace" target="_blank" rel="noopener">ZK-Trace</a></span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.uni-saarland.de/studium/angebot/master/cybersecurity.html" target="_blank" rel="noopener">Universität des Saarlandes</a>, <a href="https://cispa.de/en" target="_blank" rel="noopener">CISPA Helmholtz Center for Information Security</a></span>
+                </footer>
             </article>
             <article class="project-card">
                 <h2>MemberPass: Mobile Membership Platform</h2>
+                <div class="logo-box memberpass-logo">
+                    <img src="mplogo_svg.svg" alt="MemberPass logo" />
+                </div>
                 <p class="project-period">June 2022 – September 2024</p>
                 <p class="plain-text">Business concept, design and development of a mobile web-application. The service provides the creation of digital passes, which users can utlize to organize an event, form a group (e.g. culb or society) or any other use case which requires identification of members. The platform additionally offers the capability to define dependencies between passes, enabling membership hierarchies, and the possibility for flexible membership negotiation between a passe's purchaser and owner.</p>
                 <ul class="plain-text project-tasks">
@@ -1246,6 +1411,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> <a href="https://github.com/maximilianley/memberpass" target="_blank" rel="noopener">MemberPass</a></span>
+                    <span class="project-affiliation"><strong>Organization:</strong> independent</span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1274,7 +1440,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> Project link to be added.</span>
-                    <span class="project-affiliation"><strong>Organization:</strong> Hochschule Heilbronn, Forstamt Heilbronn</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.hs-heilbronn.de/de/angewandte-informatik" target="_blank" rel="noopener">Hochschule Heilbronn</a>, <a href="https://www.heilbronn.de/startseite.html" target="_blank" rel="noopener">Forstamt Heilbronn</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1296,7 +1462,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> Project link to be added.</span>
-                    <span class="project-affiliation"><strong>Organization:</strong> Hochschule Heilbronn, Stadt Heilbronn</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.hs-heilbronn.de/de/angewandte-informatik" target="_blank" rel="noopener">Hochschule Heilbronn</a>, <a href="https://www.heilbronn.de/startseite.html" target="_blank" rel="noopener">Stadt Heilbronn</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1307,6 +1473,7 @@
                 <p class="project-period">September 2021 – March 2022</p>
                 <p class="plain-text">Fulltime intern at the IT department of one of the world's leading thermoforming and packaging solutions providers. Department consisting of 8 administrators responsible for running and maintaining the entire company's IT-infrastructure, ensuring stability of business operations comprising company HQ and subsidiaries across Europe for 800+ employees.</p>
                 <ul class="plain-text project-tasks">
+                    <li>budget planning for yearly IT expenses</li>
                     <li>employee access management via Windows Active Directory</li>
                     <li>policy definition in Windows AD</li>
                     <li>on- and off-boarding of employees</li>
@@ -1322,7 +1489,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> Project link to be added.</span>
-                    <span class="project-affiliation"><strong>Organization:</strong> Illig Maschinenbau GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.illig.de/de-de" target="_blank" rel="noopener">Illig Maschinenbau GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1338,7 +1505,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> Project link to be added.</span>
-                    <span class="project-affiliation"><strong>Organization:</strong> Illig Maschinenbau GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.illig.de/de-de" target="_blank" rel="noopener">Illig Maschinenbau GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1354,7 +1521,7 @@
                 </div>
                 <footer class="project-source">
                     <span><strong>Source:</strong> Project link to be added.</span>
-                    <span class="project-affiliation"><strong>Organization:</strong> Illig Maschinenbau GmbH</span>
+                    <span class="project-affiliation"><strong>Organization:</strong> <a href="https://www.illig.de/de-de" target="_blank" rel="noopener">Illig Maschinenbau GmbH</a></span>
                 </footer>
             </article>
             <article class="project-card">
@@ -1397,12 +1564,30 @@
             <div class="contact-content">
                 <h1 class="view-heading">Contact</h1>
                 <div class="panel">
-                    <div class="contacts">
-                        <a class="pill_white" href="mailto:maximilianthomasley@gmail.com"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-email" /></svg>maximilianthomasley@gmail.com</a>
-                        <a class="pill_white" href="tel:+491748314351"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-mobile" /></svg>+49 174 8314351</a>
-                        <a class="pill_white" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer"><img class="contact-icon" src="github-invertocat-white.svg" alt="" />GitHub</a>
-                        <a class="pill_white" href="https://www.linkedin.com/in/maximilian-thomas-ley-b648a4174/" target="_blank" rel="noreferrer"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-linkedin" /></svg>LinkedIn</a>
-                        <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-location" /></svg>Saarbrücken, Germany</span>
+                    <h2>Reach Out</h2>
+                    <div class="contact-groups">
+                        <section class="contact-group">
+                            <h2>Personal</h2>
+                            <div class="contacts">
+                                <a class="pill_white" href="mailto:maximilianthomasley@gmail.com"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-email" /></svg>maximilianthomasley</a>
+                                <a class="pill_white" href="tel:+491748314351"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-mobile" /></svg>+49 174 8314351</a>
+                                <span class="pill_white"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-location" /></svg>Saarbrücken, Germany</span>
+                            </div>
+                        </section>
+                        <section class="contact-group">
+                            <h2>Work</h2>
+                            <div class="contacts">
+                                <a class="pill_white" href="https://www.linkedin.com/in/maximilian-thomas-ley-b648a4174/" target="_blank" rel="noreferrer"><svg class="contact-icon" aria-hidden="true"><use href="#contact-icon-linkedin" /></svg>LinkedIn</a>
+                                <a class="pill_white" href="https://www.freelancermap.de/profile/364503/form" target="_blank" rel="noopener"><img class="contact-icon" src="https://www.freelancermap.de/favicon.ico" alt="" />freelancermap</a>
+                                <a class="pill_white" href="https://cyberr.ai/u/bridged_fuse_5638" target="_blank" rel="noopener"><img class="contact-icon" src="cyberr-icon-white-DIsWUBXn.png" alt="" />Cyberr</a>
+                            </div>
+                        </section>
+                        <section class="contact-group">
+                            <h2>Dev</h2>
+                            <div class="contacts">
+                                <a class="pill_white" href="https://github.com/maximilianley/" target="_blank" rel="noreferrer"><img class="contact-icon" src="github-invertocat-white.svg" alt="" />GitHub</a>
+                            </div>
+                        </section>
                     </div>
                 </div>
                 <section class="panel working-arrangements">
@@ -1410,15 +1595,15 @@
                     <div class="arrangement-grid">
                         <div class="arrangement-item">
                             <span class="arrangement-label">Hourly rate</span>
-                            <span class="arrangement-value">to be agreed upon</span>
+                            <span class="arrangement-value">by arrangement</span>
                         </div>
                         <div class="arrangement-item">
                             <span class="arrangement-label">Availability</span>
-                            <span class="arrangement-value">to be agreed upon</span>
+                            <span class="arrangement-value">by arrangement, flexible</span>
                         </div>
                         <div class="arrangement-item">
                             <span class="arrangement-label">Location</span>
-                            <span class="arrangement-value small">Saarbrücken and surrounding area, remote, on-site by arrangement</span>
+                            <span class="arrangement-value small">Saarbrücken and surrounding area, remote, or on-site by arrangement</span>
                         </div>
                     </div>
                 </section>
@@ -1426,7 +1611,25 @@
         </div>
     </main>
 
+    <aside class="de-version-banner" aria-label="German version coming soon">
+        <span class="de-version-flag" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Version auf Deutsch im Kommen</span>
+        <button class="de-version-close" type="button" aria-label="Close German version notice">&times;</button>
+    </aside>
+
     <script>
+        const deVersionBanner = document.querySelector('.de-version-banner');
+        const deVersionClose = document.querySelector('.de-version-close');
+
+        deVersionClose?.addEventListener('click', () => {
+            if (!deVersionBanner || deVersionBanner.classList.contains('is-closing')) return;
+
+            deVersionBanner.classList.add('is-closing');
+            deVersionBanner.addEventListener('transitionend', () => {
+                deVersionBanner.remove();
+            }, { once: true });
+        });
+
         const navLinks = Array.from(document.querySelectorAll('.site-nav a'));
 
         function showCurrentView() {
